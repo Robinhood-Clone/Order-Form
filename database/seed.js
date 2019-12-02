@@ -124,3 +124,7 @@ const seedData = (data) => {
 }
 
 seedData(stockData);
+
+module.exports = {
+  Stock: Stock,
+}
