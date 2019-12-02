@@ -4,13 +4,16 @@ const sequelize = new Sequelize('robinhoodclone', 'root', 'young', {
   host: 'localhost',
   dialect: 'mysql'
 })
+
 const Stock = sequelize.define('Stock', {
   stock_name: Sequelize.STRING,
   stock_symbol: Sequelize.STRING,
   owner: Sequelize.STRING,
   price: Sequelize.STRING
 })
+
 Stock.sync();
+
 const stockData = [
   {"stock_name":"Spark Energy, Inc.","stock_symbol":"SPKE","owner":"blarrie0","price":"$886.00"},
   {"stock_name":"Harte-Hanks, Inc.","stock_symbol":"HHS","owner":"abanasik1","price":"$849.58"},
@@ -113,6 +116,8 @@ const stockData = [
   {"stock_name":"AK Steel Holding Corporation","stock_symbol":"AKS","owner":"tfettiplace2q","price":"$156.92"},
   {"stock_name":"Heritage Commerce Corp","stock_symbol":"HTBK","owner":"bivashnikov2r","price":"$118.19"}
 ]
+
+//this is the seed function
 const seedData = (data) => {
   promiseArr = [];
   for (let i = 0; i < data.length; i++) {
@@ -124,7 +129,3 @@ const seedData = (data) => {
 }
 
 seedData(stockData);
-
-module.exports = {
-  Stock: Stock,
-}
