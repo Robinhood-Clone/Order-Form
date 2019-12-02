@@ -1,0 +1,39 @@
+{
+  "name": "order_form_proxy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "webpack": "webpack -d -w --config webpack.config.js",
+    "start": "nodemon server/server.js",
+    "seed": "node database/seed.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Robinhood-Clone/Order-Form-Proxy.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Robinhood-Clone/Order-Form-Proxy/issues"
+  },
+  "homepage": "https://github.com/Robinhood-Clone/Order-Form-Proxy#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mysql2": "^2.0.1",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "sequelize": "^5.21.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.7.4",
+    "@babel/preset-env": "^7.7.4",
+    "@babel/preset-react": "^7.7.4",
+    "babel-loader": "^8.0.6",
+    "eslint": "^6.7.2",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
+  }
+}
