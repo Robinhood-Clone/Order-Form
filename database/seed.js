@@ -122,4 +122,5 @@ const seedData = (data) => {
   .then(()=> console.log('finished seeding db'))
   .catch(()=> console.log('err seeding db'))
 }
+
 seedData(stockData);
