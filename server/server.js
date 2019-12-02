@@ -4,7 +4,7 @@ const port = 5050;
 const path = require('path');
 const Controller = require('./controller.js');
 const bodyParser = require('body-parser');
-
+const db = require('../database/dbinit.js');
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())

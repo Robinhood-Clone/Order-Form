@@ -6,6 +6,7 @@
   "scripts": {
     "webpack": "webpack -d -w --config webpack.config.js",
     "start": "nodemon server/server.js",
+    "dbinit": "node database/dbinit.js",
     "seed": "node database/seed.js"
   },
   "repository": {
