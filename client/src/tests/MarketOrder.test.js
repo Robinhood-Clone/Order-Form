@@ -15,14 +15,14 @@ describe('Market Order Tests', () => {
     expect(wrapper.find('.estimatedCost').text()).toEqual('Estimated Cost $0');
     expect(wrapper.find('.buyingPower').text()).toEqual('$1000.00 Buying Power Available');
   });
-  it('should render null review order by default', () => {
+  it('should render default review order by default', () => {
     const wrapper = shallow(<MarketOrder stock={sampleStock} />);
-    expect(wrapper.state('reviewOrder')).toEqual('null');
-    expect(wrapper.find('.reviewOrder').children('.nullReviewOrder').length).toEqual(1);
+    expect(wrapper.state('reviewOrder')).toEqual('default');
+    expect(wrapper.find('.reviewOrder').children('.defaultReviewOrder').length).toEqual(1);
     expect(wrapper.find('.reviewOrder').children('.falseReviewOrder').length).toEqual(0);
     expect(wrapper.find('.reviewOrder').children('.trueReviewOrder').length).toEqual(0);
     wrapper.setState({ reviewOrder: 'false' });
-    expect(wrapper.find('.reviewOrder').children('.nullReviewOrder').length).toEqual(0);
+    expect(wrapper.find('.reviewOrder').children('.defaultReviewOrder').length).toEqual(0);
     expect(wrapper.find('.reviewOrder').children('.falseReviewOrder').length).toEqual(1);
   });
   it('should render the correct esimated price and remaining price', () => {

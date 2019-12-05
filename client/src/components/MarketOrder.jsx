@@ -8,7 +8,7 @@ class MarketOrder extends React.Component {
       view: 'buy',
       shares: '',
       estim: 0,
-      reviewOrder: 'null',
+      reviewOrder: 'default',
       remaining: '',
     }
     this.handleChange = this.handleChange.bind(this);
@@ -22,7 +22,7 @@ class MarketOrder extends React.Component {
   backPress(e) {
     e.preventDefault();
     this.setState({
-      reviewOrder: 'null'
+      reviewOrder: 'default'
     })
   }
   
@@ -34,7 +34,7 @@ class MarketOrder extends React.Component {
       estim: 0,
       shares: 0,
       remaining: 0,
-      reviewOrder: 'null'
+      reviewOrder: 'default'
     }, alert('You have successfully purchased your order!'))
   }
 
@@ -74,9 +74,9 @@ class MarketOrder extends React.Component {
   renderReviewOrder() {
     const { reviewOrder } = this.state;
 
-    if (reviewOrder === 'null') {
+    if (reviewOrder === 'default') {
       return (
-        <div className="nullReviewOrder">
+        <div className="defaultReviewOrder">
           <button onClick={this.handleReviewOrder}>Review Order</button>
         </div>
       );
@@ -114,7 +114,7 @@ class MarketOrder extends React.Component {
     return (
       <div>
         <form className="marketOrderForm">
-          <h5> Shares <input className="sharesInput" placeholder={this.state.shares} type="number" value={this.state.shares} name="shares" onChange={this.handleChange}></input> </h5>
+          <h5>Shares<input className="sharesInput" placeholder={this.state.shares} type="number" value={this.state.shares} name="shares" onChange={this.handleChange}></input></h5>
           <h5 className="marketPrice">Market Price {this.props.stock.price}</h5>
           <h5 className="estimatedCost">Estimated Cost ${this.state.estim}</h5>
           <div className="reviewOrder">
