@@ -76,7 +76,7 @@ class MarketOrder extends React.Component {
 
     if (reviewOrder === 'null') {
       return (
-        <div>
+        <div className="nullReviewOrder">
           <button onClick={this.handleReviewOrder}>Review Order</button>
         </div>
       );
@@ -84,7 +84,7 @@ class MarketOrder extends React.Component {
 
     if (reviewOrder === 'true') {
       return (
-        <div>
+        <div className="trueReviewOrder">
           <h5>You are placing a good for day market order to buy {this.state.shares} shares of {this.props.stock.stock_symbol}. Your order will be placed after the market opens and executed at the best available price.</h5>
           <button onClick={this.handleBuy}><h4>Buy</h4></button>
           <br></br>
@@ -97,7 +97,7 @@ class MarketOrder extends React.Component {
       let buyingPower = Number(this.state.power.slice(1, this.state.power.length))
       let deposit= ((this.state.estim * 1.05) - buyingPower).toFixed(2);
       return (
-        <div>
+        <div className="falseReviewOrder">
           <h4>Not Enough Buying Power</h4>
           <h5>You don't have enough buying power to buy {this.state.shares} share of {this.props.stock.stock_symbol}.</h5>
           <h5>Please Deposit {this.props.stock.price} to purchase {this.state.shares} share at market price (5% collar included).</h5>
@@ -113,12 +113,14 @@ class MarketOrder extends React.Component {
   render() {
     return (
       <div>
-        <form>
-          <h5> Shares <input placeholder={this.state.shares} type="number" value={this.state.shares} name="shares" onChange={this.handleChange}></input> </h5>
-          <h5>Market Price{this.props.stock.price} </h5>
-          <h5>Estimated Cost ${this.state.estim}</h5>
-          <div>{this.renderReviewOrder()}</div>
-          <h6>{this.state.power} Buying Power Available</h6>
+        <form className="marketOrderForm">
+          <h5> Shares <input className="sharesInput" placeholder={this.state.shares} type="number" value={this.state.shares} name="shares" onChange={this.handleChange}></input> </h5>
+          <h5 className="marketPrice">Market Price {this.props.stock.price}</h5>
+          <h5 className="estimatedCost">Estimated Cost ${this.state.estim}</h5>
+          <div className="reviewOrder">
+            {this.renderReviewOrder()}
+          </div>
+          <h6 className="buyingPower">{this.state.power} Buying Power Available</h6>
         </form>
       </div>
     );

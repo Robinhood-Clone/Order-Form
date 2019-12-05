@@ -34,7 +34,7 @@ class App extends React.Component {
 
     if (orderType === 'Market Order') {
       return (
-        <div>
+        <div className="marketOrder">
           <MarketOrder stock={this.state.stock}/>
         </div>
       );
