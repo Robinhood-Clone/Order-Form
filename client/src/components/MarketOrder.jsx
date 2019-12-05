@@ -1,6 +1,4 @@
 import React from 'react';
-import { ajax } from 'jquery';
-
 
 class MarketOrder extends React.Component {
   constructor(props) {
@@ -79,7 +77,7 @@ class MarketOrder extends React.Component {
     if (reviewOrder === 'null') {
       return (
         <div>
-          <button onClick={this.handleReviewOrder}> Review Order </button>
+          <button onClick={this.handleReviewOrder}>Review Order</button>
         </div>
       );
     }
@@ -87,10 +85,10 @@ class MarketOrder extends React.Component {
     if (reviewOrder === 'true') {
       return (
         <div>
-          <h5> You are placing a good for day market order to buy {this.state.shares} shares of {this.props.stock.stock_symbol}. Your order will be placed after the market opens and executed at the best available price.</h5>
-          <button onClick={this.handleBuy}> <h4> Buy </h4> </button>
+          <h5>You are placing a good for day market order to buy {this.state.shares} shares of {this.props.stock.stock_symbol}. Your order will be placed after the market opens and executed at the best available price.</h5>
+          <button onClick={this.handleBuy}><h4>Buy</h4></button>
           <br></br>
-          <button onClick={this.backPress}> <h4> Edit </h4> </button>
+          <button onClick={this.backPress}><h4>Edit</h4></button>
         </div>
       );
     }
@@ -100,13 +98,13 @@ class MarketOrder extends React.Component {
       let deposit= ((this.state.estim * 1.05) - buyingPower).toFixed(2);
       return (
         <div>
-          <h4> Not Enough Buying Power </h4>
-          <h5> You don't have enough buying power to buy {this.state.shares} share of {this.props.stock.stock_symbol}. </h5>
-          <h5> Please Deposit {this.props.stock.price} to purchase {this.state.shares} share at market price (5% collar included). </h5>
-          <h5> Market orders on Robinhood are placed as limit orders up to 5% above the market price in order to protect customers from spending more than they have in their Robinhood account. If you want to use your full buying power of {this.state.power} you can place a limit order instead. </h5>
-          <button> Deposit {deposit} </button>
+          <h4>Not Enough Buying Power</h4>
+          <h5>You don't have enough buying power to buy {this.state.shares} share of {this.props.stock.stock_symbol}.</h5>
+          <h5>Please Deposit {this.props.stock.price} to purchase {this.state.shares} share at market price (5% collar included).</h5>
+          <h5>Market orders on Robinhood are placed as limit orders up to 5% above the market price in order to protect customers from spending more than they have in their Robinhood account. If you want to use your full buying power of {this.state.power} you can place a limit order instead.</h5>
+          <button>Deposit {deposit}</button>
           <br></br>
-          <button onClick={this.backPress}> Back </button>
+          <button onClick={this.backPress}>Back</button>
         </div>
       );
     }
@@ -117,10 +115,10 @@ class MarketOrder extends React.Component {
       <div>
         <form>
           <h5> Shares <input placeholder={this.state.shares} type="number" value={this.state.shares} name="shares" onChange={this.handleChange}></input> </h5>
-          <h5> Market Price {this.props.stock.price} </h5>
-          <h5> Estimated Cost ${this.state.estim} </h5>
+          <h5>Market Price{this.props.stock.price} </h5>
+          <h5>Estimated Cost ${this.state.estim}</h5>
           <div>{this.renderReviewOrder()}</div>
-          <h6> {this.state.power} Buying Power Available </h6>
+          <h6>{this.state.power} Buying Power Available</h6>
         </form>
       </div>
     );

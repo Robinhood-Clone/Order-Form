@@ -55,18 +55,17 @@ class App extends React.Component {
   }
 
   render() {
-    console.log('this is this.state :', this.state)
     return (
       <div>
         <div className="header">
-          <button className="buyHeader"> Buy {this.state.stock.stock_symbol} </button>
-          <button className="sellHeader"> Sell {this.state.stock.stock_symbol} </button>
-          <button className="dropdownHeader"> ··· </button>
+          <button className="buyHeader">Buy {this.state.stock.stock_symbol}</button>
+          <button className="sellHeader">Sell {this.state.stock.stock_symbol}</button>
+          <button className="dropdownHeader">···</button>
         </div>
         <div className="main">
           {this.renderView()}
         </div>
-        <button onClick={this.toggleWatch}> {this.state.watch === false ? 'Add to Watchlist' : 'Remove from WatchList'} </button>
+        <button className="watchButton" onClick={this.toggleWatch}> {this.state.watch === false ? 'Add to Watchlist' : 'Remove from WatchList'} </button>
       </div>
     );
   }
