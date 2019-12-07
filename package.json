@@ -4,13 +4,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "webpack": "webpack -d -w --config webpack.config.js",
-    "start": "nodemon server/server.js",
-    "seed": "node database/seed.js"
+    "webpack:dev": "webpack -w -d --config webpack.config.js",
+    "server:dev": "nodemon server/server.js",
+    "db:init": "node database/dbinit.js",
+    "db:seed": "node database/seed.js",
+    "test:coverage": "jest --coverage --colors",
+    "test": "jest --colors --watch"
+  },
+  "jest": {
+    "setupTestFrameworkScriptFile": "<rootDir>/jest.setup.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Robinhood-Clone/Order-Form-Proxy.git"
+    "url": "git+https://github.com/Robinhood-Clone/Order-Form.git"
   },
   "keywords": [],
   "author": "",
@@ -22,6 +28,7 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
+    "jquery": "^3.4.1",
     "mysql": "^2.17.1",
     "mysql2": "^2.0.1",
     "react": "^16.12.0",
@@ -30,10 +37,17 @@
   },
   "devDependencies": {
     "@babel/core": "^7.7.4",
+    "@babel/plugin-proposal-class-properties": "^7.7.4",
+    "@babel/polyfill": "^7.7.0",
     "@babel/preset-env": "^7.7.4",
     "@babel/preset-react": "^7.7.4",
+    "babel-jest": "^24.9.0",
     "babel-loader": "^8.0.6",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.15.1",
     "eslint": "^6.7.2",
+    "jest": "^24.9.0",
+    "sinon": "^7.5.0",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10"
   }
