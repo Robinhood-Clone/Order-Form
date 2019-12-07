@@ -1,16 +1,17 @@
 import React from 'react';
+import { format } from 'util';
 
 class LimitOrder extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      power: '$1000.00',
       view: 'buy',
-      shares: '',
+      shares: 0,
       estim: 0,
       reviewOrder: 'default',
       remaining: '',
-      limitPrice: "$0.00"
+      limit: '$0.00',
+      checked: false
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleEstimatedCost = this.handleEstimatedCost.bind(this);
@@ -18,6 +19,7 @@ class LimitOrder extends React.Component {
     this.handleReviewOrder = this.handleReviewOrder.bind(this);
     this.backPress = this.backPress.bind(this);
     this.handleBuy = this.handleBuy.bind(this);
+    this.handleCheckBoxChange = this.handleCheckBoxChange.bind(this);
     this.handleLimitChange = this.handleLimitChange.bind(this);
   }
    
@@ -28,40 +30,48 @@ class LimitOrder extends React.Component {
     })
   }
   
-  handleLimitChange(e) {
-    console.log(e.target.value)
-    let price = Number(this.state.limitPrice.slice(1, this.props.stock.price.length)).toFixed(2);    
-    let priceStr = '$' + price
-    console.log('price :', price);
-    console.log('priceStr :', priceStr);
-    this.setState({
-      limitPrice: e.target.value
-    })
+  handleCheckBoxChange(e) {
+    e.preventDefault();
+    console.log('change triggered')
+    this.setState((p) => {
+      return {
+        checked: !p.checked
+      }
+    }, () => console.log('new state :', this.state.checked))
   }
 
   handleBuy(e) {
     e.preventDefault();
     let newPower = '$' + this.state.remaining;
     this.setState({
-      power: newPower,
       estim: 0,
       shares: 0,
       remaining: 0,
       reviewOrder: 'default'
-    }, alert('You have successfully purchased your order!'))
+    }, () => {
+      this.props.handleBuy(newPower);
+      alert('You have successfully purchased your order!')
+    });
+  }
+
+  handleLimitChange(e) {
+    e.preventDefault();
+    this.setState({
+      limit: e.target.value
+    }, () => this.handleEstimatedCost())
   }
 
   handleChange(e) {
     e.preventDefault();
     this.setState({
       [e.target.name]: Math.floor(Number(e.target.value))
-    }, this.handleEstimatedCost(Math.floor(Number(e.target.value))))
+    }, () => this.handleEstimatedCost())
   }
   
-  handleEstimatedCost(share) {
-    let price = Number(this.props.stock.price.slice(1, this.props.stock.price.length));
-    let estimPrice = share * price;
-    let buyingPower = Number(this.state.power.slice(1, this.state.power.length))
+  handleEstimatedCost() {
+    let price = Number(this.state.limit.slice(1, this.state.limit.length));
+    let estimPrice = this.state.shares * price;
+    let buyingPower = Number(this.props.power.slice(1, this.props.power.length))
     let remaining = buyingPower - estimPrice
     this.setState({
       estim: estimPrice.toFixed(2),
@@ -71,7 +81,7 @@ class LimitOrder extends React.Component {
   
   handleReviewOrder() {
     let estim = Number(this.state.estim) * 1.05
-    let buyingPower = Number(this.state.power.slice(1, this.state.power.length))
+    let buyingPower = Number(this.props.power.slice(1, this.props.power.length))
     if (estim > buyingPower) {
       this.setState({
         reviewOrder: 'false'
@@ -107,14 +117,14 @@ class LimitOrder extends React.Component {
     }
 
     if (reviewOrder === 'false') {
-      let buyingPower = Number(this.state.power.slice(1, this.state.power.length))
+      let buyingPower = Number(this.props.power.slice(1, this.props.power.length))
       let deposit= ((this.state.estim * 1.05) - buyingPower).toFixed(2);
       return (
         <div className="falseReviewOrder">
           <h4>Not Enough Buying Power</h4>
           <h5>You don't have enough buying power to buy {this.state.shares} share of {this.props.stock.stock_symbol}.</h5>
           <h5>Please Deposit {this.props.stock.price} to purchase {this.state.shares} share at market price (5% collar included).</h5>
-          <h5>Market orders on Robinhood are placed as limit orders up to 5% above the market price in order to protect customers from spending more than they have in their Robinhood account. If you want to use your full buying power of {this.state.power} you can place a limit order instead.</h5>
+          <h5>Market orders on Robinhood are placed as limit orders up to 5% above the market price in order to protect customers from spending more than they have in their Robinhood account. If you want to use your full buying power of {this.props.power} you can place a limit order instead.</h5>
           <button>Deposit {deposit}</button>
           <br></br>
           <button onClick={this.backPress}>Back</button>
@@ -126,15 +136,28 @@ class LimitOrder extends React.Component {
   render() {
     return (
       <div>
-        <form className="marketOrderForm">
-          <h5>Limit Price<input className="sharesInput" placeholder={this.state.limitPrice} type="string" value={this.state.limitPrice} name="shares" onChange={this.handleLimitChange}></input></h5>
+        <form className="limitOrderForm">
+          <h5>Limit Price<input className="limitInput" placeholder={this.state.limit} type="text" value={this.state.limit} name="limit" onChange={this.handleLimitChange}></input></h5>
           <h5>Shares<input className="sharesInput" placeholder={this.state.shares} type="number" value={this.state.shares} name="shares" onChange={this.handleChange}></input></h5>
-          <h5 className="marketPrice">Market Price {this.props.stock.price}</h5>
+          <h5 className="marketPrice">Expires
+            <select>
+              <option>Good for Day</option>
+              <option>Good till Canceled</option>
+            </select>
+          </h5>
           <h5 className="estimatedCost">Estimated Cost ${this.state.estim}</h5>
+          <h5>
+          <input
+            type="checkbox"
+            defaultChecked={this.state.checked}
+          />
+          Allow this order to execute during extended hours.
+          </h5>
+          <h5>Market Price {this.props.stock.price}</h5>
           <div className="reviewOrder">
             {this.renderReviewOrder()}
           </div>
-          <h6 className="buyingPower">{this.state.power} Buying Power Available</h6>
+          <h6 className="buyingPower">{this.props.power} Buying Power Available</h6>
         </form>
       </div>
     );

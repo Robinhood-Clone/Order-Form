@@ -11,13 +11,46 @@ const Stock = sequelize.define('Stock', {
   price: Sequelize.STRING
 })
 Stock.sync();
+const User = sequelize.define('User', {
+  username: Sequelize.STRING,
+  power: Sequelize.STRING,
+})
+User.sync();
+
 module.exports = {
   getStockData: (callback) => {
     Stock.findAll()
     .then((data) => {
-      console.log(data);
       callback(null, data);
     })
     .catch(() => callback('there was an err', null))
+  },
+  getUserPower: (callback) => {
+    User.findAll({
+      where: {
+        username: 'wsdfre2'
+      }
+    })
+    .then((data) => {
+      callback(null, data);
+    })
+    .catch(() => callback('there was an err', null))
+  },
+  updateUserPower: (power, callback) => {
+    User.findAll({
+      where: {
+        username: 'wsdfre2'
+      }
+    })
+    .on('success', function(user) {
+      if (user) {
+        user.update({
+          power: power
+        })
+        .success(function () {})
+      }
+    })
+    .then(()=> callback(null))
+    .catch(()=> callback('there was an error updating'))
   }
 }

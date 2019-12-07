@@ -17,3 +17,11 @@ app.get('/stocks', (req, res) => {
     Controller.getStockData(req, res);
 })
 
+app.get('/userpower', (req, res) => {
+    Controller.getUserPower(req, res);
+})
+
+app.put('/updateUserPower', (req, res) => {
+    let newPower = req.body.value
+    Controller.updateUserPower(newPower, res);
+})
