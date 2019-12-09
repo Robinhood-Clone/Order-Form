@@ -10,6 +10,7 @@ class MarketOrder extends React.Component {
       estim: 0,
       reviewOrder: 'default',
       remaining: '',
+      added: '',
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleEstimatedCost = this.handleEstimatedCost.bind(this);
@@ -17,8 +18,35 @@ class MarketOrder extends React.Component {
     this.handleReviewOrder = this.handleReviewOrder.bind(this);
     this.backPress = this.backPress.bind(this);
     this.handleBuy = this.handleBuy.bind(this);
+    this.renderBuyPower = this.renderBuyPower.bind(this);
   }
-   
+  
+  renderBuyPower() {
+    const BuyPower = styled.h5`
+      font-family: 'DIN Web', sans-serif;
+      font-size: 11px;
+      color: rgb(238,84,53);
+      font-style: normal;
+      position: relative;
+      text-align: center;
+      width: 100%;
+      border-top: 0.5px solid black;
+      padding-top: 15px;
+    `;
+    const Question = styled.a`
+      position: relative;
+      top: -2px;
+    `;
+    if (this.props.buy === true) {
+      return (
+        <BuyPower className="buyingPower">{this.props.power} Buying Power Available <Question className="infolink" href="#"></Question></BuyPower>
+      );
+    } else {
+      return (
+        <BuyPower className="buyingPower">{this.props.owns} Share(s) Available</BuyPower>
+      );
+    }
+  }
   backPress(e) {
     e.preventDefault();
     this.setState({
@@ -28,16 +56,31 @@ class MarketOrder extends React.Component {
   
   handleBuy(e) {
     e.preventDefault();
-    let newPower = '$' + this.state.remaining;
-    this.setState({
-      estim: 0,
-      shares: 0,
-      remaining: 0,
-      reviewOrder: 'default'
-    }, () => {
-      this.props.handleBuy(newPower);
-      alert('You have successfully purchased your order!')
-    });
+    if (this.props.buy === true) {
+      let newPower = '$' + this.state.remaining;
+      this.props.handleBuy(newPower, Number(this.state.shares));
+      this.setState({
+        estim: 0,
+        shares: 0,
+        remaining: 0,
+        added: 0,
+        reviewOrder: 'default'
+      }, () => {
+        alert('You have successfully purchased your order!')
+      });
+    } else {
+      let newPower = '$' + this.state.added;
+      this.props.handleBuy(newPower, Number(this.state.shares));
+      this.setState({
+        estim: 0,
+        shares: 0,
+        added: 0,
+        remaining: 0,
+        reviewOrder: 'default'
+      }, () => {
+        alert('You have successfully sold your order!')
+      });
+    }
   }
 
   handleChange(e) {
@@ -52,24 +95,38 @@ class MarketOrder extends React.Component {
     let estimPrice = share * price;
     let buyingPower = Number(this.props.power.slice(1, this.props.power.length))
     let remaining = buyingPower - estimPrice
+    let added = buyingPower + estimPrice
     this.setState({
       estim: estimPrice.toFixed(2),
-      remaining: remaining.toFixed(2)
+      remaining: remaining.toFixed(2),
+      added: added.toFixed(2)
     })
   }
   
   handleReviewOrder() {
     let estim = Number(this.state.estim) * 1.05
     let buyingPower = Number(this.props.power.slice(1, this.props.power.length))
-    if (estim > buyingPower) {
-      this.setState({
-        reviewOrder: 'false'
-      })
-    }
-    if (estim <= buyingPower) {
-      this.setState({
-        reviewOrder: 'true'
-      })
+    if (this.props.buy === true) {
+      if (estim > buyingPower) {
+        this.setState({
+          reviewOrder: 'false'
+        })
+      }
+      if (estim <= buyingPower) {
+        this.setState({
+          reviewOrder: 'true'
+        })
+      }
+    } else {
+      if (this.props.owns >= this.state.shares) {
+        this.setState({
+          reviewOrder: 'trueSell'
+        })
+      } else {
+        this.setState({
+          reviewOrder: 'falseSell'
+        })
+      }
     }
   }
 
@@ -148,7 +205,16 @@ class MarketOrder extends React.Component {
         </div>
       );
     }
-
+    if (reviewOrder === 'trueSell') {
+      return (
+        <div className="trueReviewOrder">
+          <WhiteTextMessage>You are placing a good for day market order to sell {this.state.shares} shares of {this.props.stock.stock_symbol}. Your order will be placed after the market opens and executed at the best available price.</WhiteTextMessage>
+          <ReviewButton onClick={this.handleBuy}><h4>Sell</h4></ReviewButton>
+          <Spacing></Spacing>
+          <ReviewButton2 onClick={this.backPress}><h4>Edit</h4></ReviewButton2>
+        </div>
+      );
+    }
     if (reviewOrder === 'false') {
       let buyingPower = Number(this.props.power.slice(1, this.props.power.length))
       let deposit= ((this.state.estim * 1.05) - buyingPower).toFixed(2);
@@ -160,6 +226,17 @@ class MarketOrder extends React.Component {
           <WhiteTextMessage>Market orders on Robinhood are placed as limit orders up to 5% above the market price in order to protect customers from spending more than they have in their Robinhood account. If you want to use your full buying power of {this.props.power} you can place a limit order instead.</WhiteTextMessage>
           <ReviewButton>Deposit {deposit}</ReviewButton>
           <Spacing></Spacing>
+          <ReviewButton2 onClick={this.backPress}>Back</ReviewButton2>
+        </div>
+      );
+    }
+    if (reviewOrder === 'falseSell') {
+      let buyingPower = Number(this.props.power.slice(1, this.props.power.length))
+      let deposit= ((this.state.estim * 1.05) - buyingPower).toFixed(2);
+      return (
+        <div className="falseReviewOrder">
+          <WhiteTextMessage2>Not Enough Shares</WhiteTextMessage2>
+          <WhiteTextMessage>You can only sell up to {this.props.owns} share(s) of {this.props.stock.stock_symbol}.</WhiteTextMessage>
           <ReviewButton2 onClick={this.backPress}>Back</ReviewButton2>
         </div>
       );
@@ -190,17 +267,6 @@ class MarketOrder extends React.Component {
       left: 22.5px;
       top: 10px;
       `;
-    const BuyPower = styled.h5`
-      font-family: 'DIN Web', sans-serif;
-      font-size: 11px;
-      color: rgb(238,84,53);
-      font-style: normal;
-      position: relative;
-      text-align: center;
-      width: 100%;
-      border-top: 0.5px solid black;
-      padding-top: 15px;
-  `;
     const ShareSearch = styled.input`
       background: rgb(23,23,24);
       border: transparent;
@@ -279,13 +345,15 @@ class MarketOrder extends React.Component {
           </Wrapper>
           <UnderLine></UnderLine>
           <Wrapper>
-            <WhiteText className="estimatedCost">Estimated Cost </WhiteText>
+            <WhiteText className="estimatedCost">{this.props.buy === true ? 'Estimated Cost ' : 'Estimated Credit ' }</WhiteText>
             <EstimatedCostWhite>${this.state.estim}</EstimatedCostWhite>
           </Wrapper>
           <div className="reviewOrder">
             {this.renderReviewOrder()}
           </div>
-          <BuyPower className="buyingPower">{this.props.power} Buying Power Available <Question className="infolink" href="#"></Question></BuyPower>
+          <div>
+            {this.renderBuyPower()}
+          </div>
         </form>
       </div>
     );

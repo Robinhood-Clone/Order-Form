@@ -16,6 +16,8 @@ class App extends React.Component {
       stock: {},
       watch: false,
       power: '',
+      buy: true,
+      owns: 100
     }
     this.getRandomStock = this.getRandomStock.bind(this);
     this.toggleWatch = this.toggleWatch.bind(this);
@@ -23,11 +25,27 @@ class App extends React.Component {
     this.handleDropDown = this.handleDropDown.bind(this);
     this.handleBuy = this.handleBuy.bind(this);
     this.getUserPower = this.getUserPower.bind(this);
+    this.handleBuyClick = this.handleBuyClick.bind(this);
+    this.handleSellClick = this.handleSellClick.bind(this);
   }
 
   componentDidMount() {
     this.getRandomStock();
     this.getUserPower();
+  }
+
+  handleBuyClick(e) {
+    e.preventDefault();
+    this.setState({
+      buy: true
+    })
+  }
+
+  handleSellClick(e) {
+    e.preventDefault();
+    this.setState({
+      buy: false
+    })
   }
 
   getUserPower() {
@@ -42,7 +60,7 @@ class App extends React.Component {
     })
   }
 
-  handleBuy(newPower) {
+  handleBuy(newPower, shares) {
     // ajax({
     //   url: '/updateUserPower',
     //   method: 'PUT',
@@ -51,9 +69,22 @@ class App extends React.Component {
     //   },
     //   success: () => console.log('successfully updated')
     // })
-    this.setState({
-      power: newPower
-    })
+    console.log('shares :', shares);
+    if (this.state.buy === true) {
+      this.setState((p) => {
+        return {
+          power: newPower,
+          owns: p.owns + shares
+        }
+      }, () => console.log('new state :', this.state))
+    } else {
+      this.setState((p) => {
+        return {
+          power: newPower,
+          owns: p.owns - shares
+        }
+      }, () => console.log('new state :', this.state))
+    }
   }
 
   handleDropDown(val) {
@@ -78,35 +109,35 @@ class App extends React.Component {
     if (orderType === 'Market Order') {
       return (
         <div className="marketOrder">
-          <MarketOrder handleBuy={this.handleBuy} power={this.state.power} stock={this.state.stock}/>
+          <MarketOrder owns={this.state.owns} buy={this.state.buy} handleBuy={this.handleBuy} power={this.state.power} stock={this.state.stock}/>
         </div>
       );
     }
     if (orderType === 'Limit Order') {
       return (
         <div className="limitOrder">
-          <LimitOrder handleBuy={this.handleBuy} power={this.state.power} stock={this.state.stock}/>
+          <LimitOrder owns={this.state.owns} buy={this.state.buy} handleBuy={this.handleBuy} power={this.state.power} stock={this.state.stock}/>
         </div>
       );
     }
     if (orderType === 'Stop Loss Order') {
       return (
         <div className="stopLossOrder">
-          <StopLossOrder handleBuy={this.handleBuy} power={this.state.power} stock={this.state.stock}/>
+          <StopLossOrder owns={this.state.owns} buy={this.state.buy} handleBuy={this.handleBuy} power={this.state.power} stock={this.state.stock}/>
         </div>
       );
     }
     if (orderType === 'Stop Limit Order') {
       return (
         <div className="stopLimitOrder">
-          <StopLimitOrder handleBuy={this.handleBuy} power={this.state.power} stock={this.state.stock}/>
+          <StopLimitOrder owns={this.state.owns} buy={this.state.buy} handleBuy={this.handleBuy} power={this.state.power} stock={this.state.stock}/>
         </div>
       );
     }
     if (orderType === 'Trailing Stop Order') {
       return (
         <div className="trailingStopOrder">
-          <TrailingStopOrder handleBuy={this.handleBuy} power={this.state.power} stock={this.state.stock}/>
+          <TrailingStopOrder owns={this.state.owns} buy={this.state.buy} handleBuy={this.handleBuy} power={this.state.power} stock={this.state.stock}/>
         </div>
       );
     }
@@ -148,6 +179,29 @@ class App extends React.Component {
         color: rgb(238,84,53);
       }
     `;
+    const SelectHeader2 = styled.button`
+      background: transparent;
+      border: transparent;
+      font-family: 'DIN Web', sans-serif;
+      font-size: 13px;
+      font-style: bold;
+      color: rgb(238,84,53);
+      position: absolute;
+      left: 92.5px;
+    `;
+    const Header2 = styled.button`
+      background: transparent;
+      border: transparent;
+      font-family: 'DIN Web', sans-serif;
+      font-size: 13px;
+      font-style: bold;
+      color: rgb(255,255,255);
+      position: relative;
+      text-indent: 15px;
+      :hover {
+        color: rgb(238,84,53);
+      }
+    `;
     const SelectHeader = styled.button`
       background: transparent;
       border: transparent;
@@ -184,23 +238,50 @@ class App extends React.Component {
       top: 13px;
       left: 22.5px;
     `;
-    return (
-      <div>
-        <BackGround>
-          <div className="header">
-            <SelectHeader className="buyHeader">Buy {this.state.stock.stock_symbol}</SelectHeader>
-            <Header className="sellHeader">Sell {this.state.stock.stock_symbol}</Header>
-            <Dropdown orderType={this.state.orderType} handleDropDown={this.handleDropDown}/>
-          </div>
-          <UnderLine></UnderLine>
-          <UnderLineBuy></UnderLineBuy>
-          <div className="main">
-            {this.renderView()}
-          </div>
-        </BackGround>
-          <WatchButton className="watchButton" onClick={this.toggleWatch}> {this.state.watch === false ? 'Add to Watchlist' : 'Remove from WatchList'} </WatchButton>
-      </div>
-    );
+    const UnderLineSell = styled.div`
+      width: 69px;
+      border-top: 2px solid rgb(238,84,53);
+      position: relative;
+      top: 13px;
+      left: 92.5px;
+    `;
+    if (this.state.buy === true) {
+      return (
+        <div>
+          <BackGround>
+            <div className="header">
+              <SelectHeader onClick={this.handleBuyClick} className="buyHeader">Buy {this.state.stock.stock_symbol}</SelectHeader>
+              <Header onClick={this.handleSellClick} className="sellHeader">Sell {this.state.stock.stock_symbol}</Header>
+              <Dropdown orderType={this.state.orderType} handleDropDown={this.handleDropDown}/>
+            </div>
+            <UnderLine></UnderLine>
+            <UnderLineBuy></UnderLineBuy>
+            <div className="main">
+              {this.renderView()}
+            </div>
+          </BackGround>
+            <WatchButton className="watchButton" onClick={this.toggleWatch}> {this.state.watch === false ? 'Add to Watchlist' : 'Remove from WatchList'} </WatchButton>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <BackGround>
+            <div className="header">
+              <Header2 onClick={this.handleBuyClick} className="buyHeader">Buy {this.state.stock.stock_symbol}</Header2>
+              <SelectHeader2 onClick={this.handleSellClick} className="sellHeader">Sell {this.state.stock.stock_symbol}</SelectHeader2>
+              <Dropdown orderType={this.state.orderType} handleDropDown={this.handleDropDown}/>
+            </div>
+            <UnderLine></UnderLine>
+            <UnderLineSell></UnderLineSell>
+            <div className="main">
+              {this.renderView()}
+            </div>
+          </BackGround>
+            <WatchButton className="watchButton" onClick={this.toggleWatch}> {this.state.watch === false ? 'Add to Watchlist' : 'Remove from WatchList'} </WatchButton>
+        </div>
+      );
+    }
   }
 }
 
