@@ -128,12 +128,12 @@ class App extends React.Component {
   render() {
     const BackGround = styled.div`
       background: rgb(27,27,29);
-      width: 255px;
-      padding-left: 10px;
-      padding-right: 10px;
+      width: 275px;
       padding-top: 15px;
       padding-bottom: 2px;
       box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      border-radius: 5px;
+
     `;
     const Header = styled.button`
       background: transparent;
@@ -142,8 +142,21 @@ class App extends React.Component {
       font-size: 13px;
       font-style: bold;
       color: rgb(255,255,255);
+      position: absolute;
+      left: 92.5px;
+      :hover {
+        color: rgb(238,84,53);
+      }
+    `;
+    const SelectHeader = styled.button`
+      background: transparent;
+      border: transparent;
+      font-family: 'DIN Web', sans-serif;
+      font-size: 13px;
+      font-style: bold;
+      color: rgb(238,84,53);
       position: relative;
-      left: 12.5px;
+      text-indent: 15px;
     `;
     const WatchButton = styled.button`
       color: rgb(238,84,53);
@@ -154,26 +167,33 @@ class App extends React.Component {
       border-color: rgb(238,84,53);
       border-width: 1px;
       position: relative;
-      left: 12.5px;
+      left: 22.5px;
       top: 10px;
+      border-radius: 5px;
+    `;
+    const UnderLine = styled.div`
+      width: 275px;
+      border-top: 0.5px solid black;
+      position: relative;
+      top: 15px;
+    `;
+    const UnderLineBuy = styled.div`
+      width: 69px;
+      border-top: 2px solid rgb(238,84,53);
+      position: relative;
+      top: 13px;
+      left: 22.5px;
     `;
     return (
       <div>
         <BackGround>
           <div className="header">
-            <Header className="buyHeader">Buy {this.state.stock.stock_symbol}</Header>
+            <SelectHeader className="buyHeader">Buy {this.state.stock.stock_symbol}</SelectHeader>
             <Header className="sellHeader">Sell {this.state.stock.stock_symbol}</Header>
-            <Dropdown handleDropDown={this.handleDropDown}/>
-            {/* <select className="dropdownHeader" onChange={this.handleDropDown}>            
-              <option value="" selected disabled hidden>···</option>
-              <option value="" disabled>Order Type</option>
-              <option value="Market Order">Market Order</option>
-              <option value="Limit Order">Limit Order</option>
-              <option value="Stop Loss Order">Stop Loss Order</option>
-              <option value="Stop Limit Order">Stop Limit Order</option>
-              <option value="Trailing Stop Order">Trailing Stop Order</option>
-            </select> */}
+            <Dropdown orderType={this.state.orderType} handleDropDown={this.handleDropDown}/>
           </div>
+          <UnderLine></UnderLine>
+          <UnderLineBuy></UnderLineBuy>
           <div className="main">
             {this.renderView()}
           </div>
