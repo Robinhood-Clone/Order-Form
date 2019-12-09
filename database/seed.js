@@ -12,8 +12,17 @@ const Stock = sequelize.define('Stock', {
   price: Sequelize.STRING
 })
 
-Stock.sync();
+const User = sequelize.define('User', {
+  username: Sequelize.STRING,
+  power: Sequelize.STRING,
+})
 
+User.sync();
+
+Stock.sync();
+const userData = [
+  {"username":"wsdfre2","power":"$10000.00"}
+]
 const stockData = [
   {"stock_name":"Spark Energy, Inc.","stock_symbol":"SPKE","owner":"blarrie0","price":"$886.00"},
   {"stock_name":"Harte-Hanks, Inc.","stock_symbol":"HHS","owner":"abanasik1","price":"$849.58"},
@@ -118,7 +127,7 @@ const stockData = [
 ]
 
 //this is the seed function
-const seedData = (data) => {
+const seedStockData = (data) => {
   promiseArr = [];
   for (let i = 0; i < data.length; i++) {
     promiseArr.push(Stock.create(data[i]))
@@ -127,5 +136,15 @@ const seedData = (data) => {
   .then(()=> console.log('finished seeding db'))
   .catch(()=> console.log('err seeding db'))
 }
+const seedUserData = (data) => {
+  promiseArr = [];
+  for (let i = 0; i < data.length; i++) {
+    promiseArr.push(User.create(data[i]))
+  }
+  Promise.all(promiseArr)
+  .then(()=> console.log('finished seeding db'))
+  .catch(()=> console.log('err seeding db'))
+}
 
-seedData(stockData);
+seedStockData(stockData);
+seedUserData(userData);
