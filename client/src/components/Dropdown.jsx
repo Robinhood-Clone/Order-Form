@@ -31,7 +31,6 @@ class Dropdown extends React.Component {
     `;
     const DropDownButton = styled.button`
       color: rgb(255,255,255);
-      font-family: 'DIN Web', sans-serif;
       font-size 13px;
       background: transparent;
       border: transparent;
@@ -44,7 +43,6 @@ class Dropdown extends React.Component {
     `;
     const DropDownButtonSelect = styled.button`
       color: rgb(238,84,53);
-      font-family: 'DIN Web', sans-serif;
       font-size 13px;
       background: transparent;
       border: transparent;
@@ -55,7 +53,6 @@ class Dropdown extends React.Component {
     `;
     const DropdownTitle = styled.div`
       color: rgb(255,255,255);
-      font-family: 'DIN Web', sans-serif;
       font-size 14px;
       position: relative;
       text-indent: 20px;
@@ -162,7 +159,7 @@ class Dropdown extends React.Component {
       color: rgb(255,255,255);
       position: absolute;
       left: 235px;
-      top: 15px;
+      top: 12px;
       font-size: 30px;
       :hover {
         color: rgb(238,84,53);

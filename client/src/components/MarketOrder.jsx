@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import MarketPricePopUp from './MarketPricePopUp.jsx';
+import BuyingPowerPopUp from './BuyingPowerPopUp.jsx';
 
 class MarketOrder extends React.Component {
   constructor(props) {
@@ -7,7 +9,7 @@ class MarketOrder extends React.Component {
     this.state = {
       view: 'buy',
       shares: 0,
-      estim: 0,
+      estim: '0.00',
       reviewOrder: 'default',
       remaining: '',
       added: '',
@@ -19,15 +21,55 @@ class MarketOrder extends React.Component {
     this.backPress = this.backPress.bind(this);
     this.handleBuy = this.handleBuy.bind(this);
     this.renderBuyPower = this.renderBuyPower.bind(this);
+    this.renderMarketPricePopUp = this.renderMarketPricePopUp.bind(this);
+    this.renderBuyPowerPopUp = this.renderBuyPowerPopUp.bind(this);
+    this.handleMPPopUpClick = this.handleMPPopUpClick.bind(this);
+    this.handleBPPopUpClick = this.handleBPPopUpClick.bind(this);
+  }
+
+  handleBPPopUpClick() {
+    this.setState((p) => {
+      return {
+        bppopup: !p.bppopup
+      }
+    })
+  }
+
+  handleMPPopUpClick() {
+    this.setState((p) => {
+      return {
+        mppopup: !p.mppopup
+      }
+    })
   }
   
+  renderMarketPricePopUp() {
+    if (this.state.mppopup === true) {
+      return (
+        <div>
+          <MarketPricePopUp power={this.props.power} stock={this.props.stock}/>
+        </div>
+      );
+    }
+  }
+
+  renderBuyPowerPopUp() {
+    if (this.state.bppopup === true) {
+      return (
+        <div>
+          <BuyingPowerPopUp power={this.props.power} stock={this.props.stock}/>
+        </div>
+      );
+    }
+  }
+
   renderBuyPower() {
     const BuyPower = styled.h5`
-      font-family: 'DIN Web', sans-serif;
-      font-size: 11px;
+      font-size: 12px;
       color: rgb(238,84,53);
       font-style: normal;
       position: relative;
+      font-family: 'DINPro-Medium', -apple-system, BlinkMacSystemFont, sans-serif;
       text-align: center;
       width: 100%;
       border-top: 0.5px solid black;
@@ -39,7 +81,10 @@ class MarketOrder extends React.Component {
     `;
     if (this.props.buy === true) {
       return (
-        <BuyPower className="buyingPower">{this.props.power} Buying Power Available <Question className="infolink" href="#"></Question></BuyPower>
+        <div>
+          <BuyPower className="buyingPower">{this.props.power} Buying Power Available <Question className="infolink" onClick={() => this.handleBPPopUpClick()}></Question></BuyPower>
+          {this.renderBuyPowerPopUp()}
+        </div>
       );
     } else {
       return (
@@ -47,6 +92,7 @@ class MarketOrder extends React.Component {
       );
     }
   }
+
   backPress(e) {
     e.preventDefault();
     this.setState({
@@ -84,7 +130,6 @@ class MarketOrder extends React.Component {
   }
 
   handleChange(e) {
-    e.preventDefault();
     this.setState({
       [e.target.name]: Math.floor(Number(e.target.value))
     }, this.handleEstimatedCost(Math.floor(Number(e.target.value))))
@@ -136,7 +181,8 @@ class MarketOrder extends React.Component {
     const depositPrice = Number(this.state.estim) - buyingPower
     const ReviewButton = styled.button`
       color: rgb(27,27,29);
-      font-size: 11px;
+      font-family: 'DINPro-Medium', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 12px;
       width: 230px;
       text-align: center;
       background: rgb(238,84,53);
@@ -152,6 +198,7 @@ class MarketOrder extends React.Component {
     `;
     const ReviewButton2 = styled.button`
       color: rgb(238,84,53);
+      font-family: 'DINPro-Medium', -apple-system, BlinkMacSystemFont, sans-serif;
       width: 230px;
       text-align: center;
       background: rgb(27,27,29);
@@ -164,8 +211,7 @@ class MarketOrder extends React.Component {
       border-radius: 5px;
     `;
     const WhiteTextMessage = styled.h5`
-      font-family: 'DIN Web', sans-serif;
-      font-size: 11px;
+      font-size: 12px;
       color: rgb(255,255,255);
       font-style: normal;
       position: relative;
@@ -175,11 +221,11 @@ class MarketOrder extends React.Component {
 
     `;
     const WhiteTextMessage2 = styled.h5`
-      font-family: 'DIN Web', sans-serif;
       font-size: 12.5px;
       color: rgb(255,255,255);
       font-style: normal;
       position: relative;
+      font-family: 'DINPro-Medium', -apple-system, BlinkMacSystemFont, sans-serif;
       left: 22.5px;
       top: 10px;
       padding-right: 45px;
@@ -187,6 +233,10 @@ class MarketOrder extends React.Component {
     const Spacing = styled.div`
       height: 20px;
     `;
+    const Exclamation = styled.a`
+    position: relative;
+    top: -2px;
+  `;
     if (reviewOrder === 'default') {
       return (
         <div className="defaultReviewOrder">
@@ -220,11 +270,11 @@ class MarketOrder extends React.Component {
       let deposit= ((this.state.estim * 1.05) - buyingPower).toFixed(2);
       return (
         <div className="falseReviewOrder">
-          <WhiteTextMessage2>Not Enough Buying Power</WhiteTextMessage2>
+          <WhiteTextMessage2> <Exclamation className="exclamation" href="#"></Exclamation>Not Enough Buying Power</WhiteTextMessage2>
           <WhiteTextMessage>You don't have enough buying power to buy {this.state.shares} share of {this.props.stock.stock_symbol}.</WhiteTextMessage>
-          <WhiteTextMessage>Please Deposit {depositPrice} to purchase {this.state.shares} share at market price (5% collar included).</WhiteTextMessage>
+          <WhiteTextMessage>Please Deposit ${deposit} to purchase {this.state.shares} share at market price (5% collar included).</WhiteTextMessage>
           <WhiteTextMessage>Market orders on Robinhood are placed as limit orders up to 5% above the market price in order to protect customers from spending more than they have in their Robinhood account. If you want to use your full buying power of {this.props.power} you can place a limit order instead.</WhiteTextMessage>
-          <ReviewButton>Deposit {deposit}</ReviewButton>
+          <ReviewButton>Deposit ${deposit}</ReviewButton>
           <Spacing></Spacing>
           <ReviewButton2 onClick={this.backPress}>Back</ReviewButton2>
         </div>
@@ -249,19 +299,27 @@ class MarketOrder extends React.Component {
       justify-content: space-between;
     `;
     const WhiteText = styled.h5`
-      font-family: 'DIN Web', sans-serif;
-      font-size: 11px;
+      font-size: 12px;
       color: rgb(255,255,255);
       font-style: normal;
       position: relative;
       left: 22.5px;
       top: 10px;
     `;
+    const WhiteTextBold = styled.h5`
+      font-size: 12px;
+      color: rgb(255,255,255);
+      font-style: normal;
+      position: relative;
+      font-family: 'DINPro-Medium', -apple-system, BlinkMacSystemFont, sans-serif;
+      left: 22.5px;
+      top: 10px;
+    `;
     const MarketPrice = styled.h5`
-      font-family: 'DIN Web', sans-serif;
-      font-size: 11px;
+      font-size: 12px;
       color: rgb(238,84,53);
       font-style: normal;
+      font-family: 'DINPro-Medium', -apple-system, BlinkMacSystemFont, sans-serif;
       position: relative;
       left: 22.5px;
       top: 10px;
@@ -275,8 +333,7 @@ class MarketOrder extends React.Component {
       height: 35px;
       top: 10px;
       right: 22.5px;
-      font-family: 'DIN Web', sans-serif;
-      font-size: 11px;
+      font-size: 12px;
       text-align: right;
       :hover {
         border: 1px solid rgb(140,140,142);
@@ -286,12 +343,12 @@ class MarketOrder extends React.Component {
     const EstimatedCostWhite = styled.h5`
       color: rgb(255,255,255);
       text-align: right;
+      font-family: 'DINPro-Medium', -apple-system, BlinkMacSystemFont, sans-serif;
       position: relative;
       background: transparent;
       right: 22.5px;
       top: 10px;
-      font-family: 'DIN Web', sans-serif;
-      font-size: 11px;
+      font-size: 12px;
     `;
     const UnderLine = styled.div`
       width: 230px;
@@ -305,11 +362,11 @@ class MarketOrder extends React.Component {
       height: 20px;
     `;
     const MarketPriceWhite = styled.h5`
-      font-family: 'DIN Web', sans-serif;
-      font-size: 11px;
+      font-size: 12px;
       color: rgb(255,255,255);
       font-style: normal;
       position: relative;
+      font-family: 'DINPro-Medium', -apple-system, BlinkMacSystemFont, sans-serif;
       right: 22.5px;
       top: 10px;
     `;
@@ -323,15 +380,18 @@ class MarketOrder extends React.Component {
           <Spacing></Spacing>
           <Wrapper>
             <WhiteText>Shares</WhiteText>
-            <ShareSearch className="sharesInput" placeholder={this.state.shares} type="number" value={this.state.shares} name="shares" onChange={this.handleChange}></ShareSearch>
+            <ShareSearch className="sharesInput" type="number" value={this.state.shares} name="shares" onChange={this.handleChange}></ShareSearch>
           </Wrapper>
           <Wrapper>
-            <MarketPrice className="marketPrice">Market Price <Question className="infolink" href="#"></Question></MarketPrice>
+            <MarketPrice className="marketPrice">Market Price <Question className="infolink" onClick={() => this.handleMPPopUpClick()}></Question></MarketPrice>
             <MarketPriceWhite>{this.props.stock.price}</MarketPriceWhite>
           </Wrapper>
+          <div>
+            {this.renderMarketPricePopUp()}
+          </div>
           <UnderLine></UnderLine>
           <Wrapper>
-            <WhiteText className="estimatedCost">{this.props.buy === true ? 'Estimated Cost ' : 'Estimated Credit ' }</WhiteText>
+            <WhiteTextBold className="estimatedCost">{this.props.buy === true ? 'Estimated Cost ' : 'Estimated Credit ' }</WhiteTextBold>
             <EstimatedCostWhite>${this.state.estim}</EstimatedCostWhite>
           </Wrapper>
           <div className="reviewOrder">

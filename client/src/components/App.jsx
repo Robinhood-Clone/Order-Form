@@ -169,9 +169,8 @@ class App extends React.Component {
     const Header = styled.button`
       background: transparent;
       border: transparent;
-      font-family: 'DIN Web', sans-serif;
+      font-family: 'DINPro-Medium', -apple-system, BlinkMacSystemFont, sans-serif;
       font-size: 13px;
-      font-style: bold;
       color: rgb(255,255,255);
       position: absolute;
       left: 92.5px;
@@ -182,9 +181,8 @@ class App extends React.Component {
     const SelectHeader2 = styled.button`
       background: transparent;
       border: transparent;
-      font-family: 'DIN Web', sans-serif;
+      font-family: 'DINPro-Medium', -apple-system, BlinkMacSystemFont, sans-serif;
       font-size: 13px;
-      font-style: bold;
       color: rgb(238,84,53);
       position: absolute;
       left: 92.5px;
@@ -192,13 +190,12 @@ class App extends React.Component {
     const Header2 = styled.button`
       background: transparent;
       border: transparent;
-      font-family: 'DIN Web', sans-serif;
       font-size: 13px;
-      font-style: bold;
       color: rgb(255,255,255);
+      font-family: 'DINPro-Medium', -apple-system, BlinkMacSystemFont, sans-serif;
       position: relative;
       text-indent: 15px;
-      top: -1px;
+      top: -2px;
       :hover {
         color: rgb(238,84,53);
       }
@@ -206,13 +203,13 @@ class App extends React.Component {
     const SelectHeader = styled.button`
       background: transparent;
       border: transparent;
-      font-family: 'DIN Web', sans-serif;
       font-size: 13px;
+      font-family: 'DINPro-Medium', -apple-system, BlinkMacSystemFont, sans-serif;
       font-style: bold;
       color: rgb(238,84,53);
       position: relative;
-      top: -1px;
       text-indent: 15px;
+      top: -2px;
     `;
     const WatchButton = styled.button`
       color: rgb(238,84,53);
@@ -234,18 +231,18 @@ class App extends React.Component {
       top: 15px;
     `;
     const UnderLineBuy = styled.div`
-      width: 69px;
+      width: 60px;
       border-top: 2px solid rgb(238,84,53);
       position: relative;
       top: 13px;
       left: 22.5px;
     `;
     const UnderLineSell = styled.div`
-      width: 69px;
+      width: 60px;
       border-top: 2px solid rgb(238,84,53);
       position: relative;
       top: 13px;
-      left: 92.5px;
+      left: 90px;
     `;
     if (this.state.buy === true) {
       return (

@@ -1,5 +1,6 @@
 body {
   background: rgb(27,27,29);
+  font-family: 'DINPro', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -24,4 +25,42 @@ input::-webkit-inner-spin-button {
     background: rgb(27,27,29);
     border: 1px solid rgb(238,84,53);
     text-decoration: none;
+}
+.exclamation:before
+{
+    content: '!';
+    display: inline-block;
+    font-family: sans-serif;
+    font-weight: bold;
+    text-align: center;
+    width: 1.8ex;
+    height: 1.8ex;
+    font-size: 1.4ex;
+    line-height: 1.8ex;
+    border-radius: 1.2ex;
+    margin-right: 4px;
+    padding: 1px;
+    color: rgb(27,27,29);
+    background: white;
+    border: 1px solid white;
+    text-decoration: none;
+}
+
+@font-face
+{
+    font-family: 'DINPro-Light';
+    src: url('./DINPro-Light.ttf')
+}
+
+@font-face
+{
+    font-family: 'DINPro-Medium';
+    src: url('./DINPro-Medium.ttf')
+}
+
+
+@font-face
+{
+    font-family: 'DINPro';
+    src: url('./DINPro.ttf')
 }
