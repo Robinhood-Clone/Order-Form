@@ -232,7 +232,6 @@ class MarketOrder extends React.Component {
     }
     if (reviewOrder === 'falseSell') {
       let buyingPower = Number(this.props.power.slice(1, this.props.power.length))
-      let deposit= ((this.state.estim * 1.05) - buyingPower).toFixed(2);
       return (
         <div className="falseReviewOrder">
           <WhiteTextMessage2>Not Enough Shares</WhiteTextMessage2>
@@ -293,19 +292,6 @@ class MarketOrder extends React.Component {
       top: 10px;
       font-family: 'DIN Web', sans-serif;
       font-size: 11px;
-    `;
-    const GoodForDay = styled.select`
-      background: rgb(23,23,24);
-      border: transparent;
-      color: rgb(255,255,255);
-      width: 140px;
-      position: relative;
-      height: 35px;
-      top: 10px;
-      right: 22.5px;
-      font-family: 'DIN Web', sans-serif;
-      font-size: 11px;
-      text-align: right;
     `;
     const UnderLine = styled.div`
       width: 230px;

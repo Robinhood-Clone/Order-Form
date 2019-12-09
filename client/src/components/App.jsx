@@ -198,6 +198,7 @@ class App extends React.Component {
       color: rgb(255,255,255);
       position: relative;
       text-indent: 15px;
+      top: -1px;
       :hover {
         color: rgb(238,84,53);
       }
@@ -210,6 +211,7 @@ class App extends React.Component {
       font-style: bold;
       color: rgb(238,84,53);
       position: relative;
+      top: -1px;
       text-indent: 15px;
     `;
     const WatchButton = styled.button`

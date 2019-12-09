@@ -229,16 +229,6 @@ class StopLimitOrder extends React.Component {
       }
       border-radius: 5px;
     `;
-    const MarketPriceWhite = styled.h5`
-      color: rgb(255,255,255);
-      text-align: right;
-      position: relative;
-      background: transparent;
-      right: 22.5px;
-      top: 10px;
-      font-family: 'DIN Web', sans-serif;
-      font-size: 11px;
-    `;
     const EstimatedCostWhite = styled.h5`
       color: rgb(255,255,255);
       text-align: right;
