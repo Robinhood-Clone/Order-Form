@@ -16,7 +16,8 @@ class TrailingStopOrder extends React.Component {
       remaining: '',
       trailP: '0%',
       trailD: '$0.00',
-      inputType: 'Percentage'
+      inputType: 'Percentage',
+      exp: 'gfd'
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleEstimatedCost = this.handleEstimatedCost.bind(this);
@@ -106,9 +107,11 @@ class TrailingStopOrder extends React.Component {
     })
   }
   
-  handleTrailInputChange(value) {
+  handleTrailInputChange(value, type) {
+    console.log('value :', value)
     this.setState({
-      inputType: value
+      inputType: value,
+      exp: type
     })
   }
 
@@ -415,7 +418,7 @@ class TrailingStopOrder extends React.Component {
           <Spacing></Spacing>
           <Wrapper>
             <WhiteText className="marketPrice">Trail Type</WhiteText>
-            <TrailDropDown handleTrailInputChange={this.handleTrailInputChange} exp="gfd"/>
+            <TrailDropDown exp={this.state.exp} handleTrailInputChange={this.handleTrailInputChange} ></TrailDropDown>
           </Wrapper>
           <div>
             {this.renderTrailInput()}

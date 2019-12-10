@@ -5,7 +5,6 @@ class TrailDropDown extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
-      exp: this.props.exp,
       open: false,
     }
     this.renderDropDown = this.renderDropDown.bind(this);
@@ -16,16 +15,14 @@ class TrailDropDown extends React.Component{
 
   handleGTCClick(e) {
     e.preventDefault();
-    this.setState({
-      exp: 'gtc'
-    }, this.props.handleTrailInputChange('Amount'))
+    this.props.handleTrailInputChange('Amount', 'gtc')
+
   }
 
   handleGFDClick(e) {
     e.preventDefault();
-    this.setState({
-      exp: 'gfd'
-    }, this.props.handleTrailInputChange('Percentage'))
+    this.props.handleTrailInputChange('Percentage', 'gfd')
+
   }
 
   handleClick(e) {
@@ -70,7 +67,7 @@ class TrailDropDown extends React.Component{
       z-index: 8;
     `;
     if (this.state.open === true) {
-      if (this.state.exp === 'gfd') {
+      if (this.props.exp === 'gfd') {
         return(
           <Wrapper>
             <OptionSelect onClick={this.handleGFDClick}>Percentage</OptionSelect>
@@ -106,7 +103,8 @@ class TrailDropDown extends React.Component{
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
       }
     `;
-    if (this.state.exp === 'gfd') {
+    if (this.props.exp === 'gfd') {
+      console.log('this.state inside gfd :', this.state);
       return (
         <GoodForDay onClick={this.handleClick}>
           Percentage ▼
@@ -114,6 +112,7 @@ class TrailDropDown extends React.Component{
         </GoodForDay>
       );
     } else {
+      console.log('this.state inside gtc :', this.state);
       return (
         <GoodForDay onClick={this.handleClick}>
           Amount ▼
