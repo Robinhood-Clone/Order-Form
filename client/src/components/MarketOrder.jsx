@@ -130,12 +130,14 @@ class MarketOrder extends React.Component {
   }
 
   handleChange(e) {
+    let val = Math.floor(Number(e.target.value));
     this.setState({
-      [e.target.name]: Math.floor(Number(e.target.value))
-    }, this.handleEstimatedCost(Math.floor(Number(e.target.value))))
+      [e.target.name]: val
+    }, this.handleEstimatedCost)
   }
   
-  handleEstimatedCost(share) {
+  handleEstimatedCost() {
+    let share = Number(this.state.shares)
     let price = Number(this.props.stock.price.slice(1, this.props.stock.price.length));
     let estimPrice = share * price;
     let buyingPower = Number(this.props.power.slice(1, this.props.power.length))

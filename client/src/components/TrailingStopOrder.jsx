@@ -136,6 +136,7 @@ class TrailingStopOrder extends React.Component {
       position: relative;
       left: 22.5px;
       top: 10px;
+      
     `;
     const ShareSearch = styled.input`
       background: rgb(23,23,24);
@@ -148,6 +149,10 @@ class TrailingStopOrder extends React.Component {
       right: 22.5px;
       font-size: 11px;
       text-align: right;
+      :hover {
+        border: 1px solid rgb(140,140,142);
+      }
+      border-radius: 5px;
     `;
     if (this.state.inputType === 'Percentage') {
       return (
