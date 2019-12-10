@@ -12,21 +12,16 @@ class ExpiresDropdown extends React.Component{
     this.handleClick= this.handleClick.bind(this);
     this.handleGFDClick = this.handleGFDClick.bind(this);
     this.handleGTCClick = this.handleGTCClick.bind(this);
-
   }
 
   handleGTCClick(e) {
     e.preventDefault();
-    this.setState({
-      exp: 'gtc'
-    })
+    this.props.handleEXPChange('gtc')
   }
 
   handleGFDClick(e) {
     e.preventDefault();
-    this.setState({
-      exp: 'gfd'
-    })
+    this.props.handleEXPChange('gfd')
   }
 
   handleClick(e) {
@@ -45,8 +40,8 @@ class ExpiresDropdown extends React.Component{
       justify-content: space-between;
     `;
     const Option = styled.div`
-      background: rgb(23,23,24);
-      border: transparent;
+      background: rgb(27,27,29);
+      border: 0.5px solid black;
       color: rgb(255,255,255);
       width: 141px;
       position: absolute;
@@ -56,10 +51,13 @@ class ExpiresDropdown extends React.Component{
       padding-top: 11px;
       padding-bottom: 11px;
       z-index: 8;
+      :hover {
+        background: rgb(23,23,24);
+      }
     `;
     const OptionSelect = styled.div`
       background: rgb(238,84,53);
-      border: transparent;
+      border: 0.5px solid black;
       color: rgb(23,23,24);
       width: 141px;
       position: absolute;
@@ -91,8 +89,8 @@ class ExpiresDropdown extends React.Component{
 
   render() {
     const GoodForDay = styled.div`
-      background: rgb(23,23,24);
-      border: transparent;
+      background: rgb(27,27,29);
+      border: 0.5px solid black;
       color: rgb(255,255,255);
       width: 141px;
       position: relative;
