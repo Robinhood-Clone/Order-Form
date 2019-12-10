@@ -16,7 +16,7 @@ class LimitOrder extends React.Component {
       limit: '$0.00',
       checked: false,
       added: '',
-      
+      exp: 'gfd',
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleEstimatedCost = this.handleEstimatedCost.bind(this);
@@ -30,7 +30,13 @@ class LimitOrder extends React.Component {
     this.handleBPPopUpClick = this.handleBPPopUpClick.bind(this);
     this.renderMarketPricePopUp = this.renderMarketPricePopUp.bind(this);
     this.renderBuyPowerPopUp = this.renderBuyPowerPopUp.bind(this);
-    this.renderBuyPower = this.renderBuyPower.bind(this);
+    this.renderBuyPower = this.renderBuyPower.bind(this);this.handleEXPChange = this.handleEXPChange.bind(this);
+  }
+  
+  handleEXPChange(val) {
+    this.setState({
+      exp: val
+    })
   }
 
   handleBPPopUpClick() {
@@ -441,7 +447,7 @@ class LimitOrder extends React.Component {
           </Wrapper>
           <Wrapper className="custom-select">
             <WhiteText className="marketPrice">Expires</WhiteText>
-            <ExpiresDropdown exp="gfd"></ExpiresDropdown>
+            <ExpiresDropdown handleEXPChange={this.handleEXPChange} exp={this.state.exp} />
           </Wrapper>
           <UnderLineMini></UnderLineMini>
           <Wrapper>

@@ -17,7 +17,8 @@ class TrailingStopOrder extends React.Component {
       trailP: '0%',
       trailD: '$0.00',
       inputType: 'Percentage',
-      exp: 'gfd'
+      tt: 'gfd',
+      exp: 'gfd',
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleEstimatedCost = this.handleEstimatedCost.bind(this);
@@ -32,6 +33,13 @@ class TrailingStopOrder extends React.Component {
     this.renderMarketPricePopUp = this.renderMarketPricePopUp.bind(this);
     this.renderBuyPowerPopUp = this.renderBuyPowerPopUp.bind(this);
     this.renderBuyPower = this.renderBuyPower.bind(this);
+    this.handleEXPChange = this.handleEXPChange.bind(this);
+  }
+  
+  handleEXPChange(val) {
+    this.setState({
+      exp: val
+    })
   }
 
   handleBPPopUpClick() {
@@ -111,7 +119,7 @@ class TrailingStopOrder extends React.Component {
     console.log('value :', value)
     this.setState({
       inputType: value,
-      exp: type
+      tt: type
     })
   }
 
@@ -418,7 +426,7 @@ class TrailingStopOrder extends React.Component {
           <Spacing></Spacing>
           <Wrapper>
             <WhiteText className="marketPrice">Trail Type</WhiteText>
-            <TrailDropDown exp={this.state.exp} handleTrailInputChange={this.handleTrailInputChange} ></TrailDropDown>
+            <TrailDropDown exp={this.state.tt} handleTrailInputChange={this.handleTrailInputChange} ></TrailDropDown>
           </Wrapper>
           <div>
             {this.renderTrailInput()}
@@ -429,7 +437,7 @@ class TrailingStopOrder extends React.Component {
           </Wrapper>
           <Wrapper>
             <WhiteText className="marketPrice">Expires</WhiteText>
-            <ExpiresDropdown exp="gfd" />
+            <ExpiresDropdown handleEXPChange={this.handleEXPChange} exp={this.state.exp} />
           </Wrapper>
           <Wrapper>
             <WhiteTextBold className="estimatedCost">{this.props.buy === true ? 'Estimated Cost ' : 'Estimated Credit ' }</WhiteTextBold>
