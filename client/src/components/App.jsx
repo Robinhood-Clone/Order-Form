@@ -50,7 +50,7 @@ class App extends React.Component {
 
   getUserPower() {
     ajax({
-      url: '/userpower',
+      url: 'http://localhost:5050/userpower',
       method: 'GET',
       success: (data) => {
         this.setState({
@@ -145,7 +145,7 @@ class App extends React.Component {
 
   getRandomStock() {
     ajax({
-      url: '/stocks',
+      url: 'http://localhost:5050/stocks',
       method: 'GET',
       success: (data) => {
         let randomIndex = Math.floor(Math.random() * data.length);

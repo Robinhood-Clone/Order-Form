@@ -15,15 +15,15 @@ app.listen(port, () => console.log(`Listening in on port ${port}!`));
 
 app.use('/', express.static(path.join(__dirname, '../client/dist')));
 
-app.get('http://localhost:5050/stocks', (req, res) => {
+app.get('/stocks', (req, res) => {
     Controller.getStockData(req, res);
 })
 
-app.get('http://localhost:5050/userpower', (req, res) => {
+app.get('/userpower', (req, res) => {
     Controller.getUserPower(req, res);
 })
 
-app.put('http://localhost:5050/updateUserPower', (req, res) => {
+app.put('/updateUserPower', (req, res) => {
     let newPower = req.body.value
     Controller.updateUserPower(newPower, res);
 })
