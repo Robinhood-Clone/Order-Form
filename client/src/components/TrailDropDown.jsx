@@ -105,7 +105,6 @@ class TrailDropDown extends React.Component{
       }
     `;
     if (this.props.exp === 'gfd') {
-      console.log('this.state inside gfd :', this.state);
       return (
         <GoodForDay onClick={this.handleClick}>
           Percentage ▼
@@ -113,7 +112,6 @@ class TrailDropDown extends React.Component{
         </GoodForDay>
       );
     } else {
-      console.log('this.state inside gtc :', this.state);
       return (
         <GoodForDay onClick={this.handleClick}>
           Amount ▼

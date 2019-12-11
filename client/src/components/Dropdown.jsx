@@ -15,7 +15,6 @@ class Dropdown extends React.Component {
   
   handleDropDownClick(e) {
     e.preventDefault();
-    console.log(e.target.value)
     this.props.handleDropDown(e.target.value)
   }
 

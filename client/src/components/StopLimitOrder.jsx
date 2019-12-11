@@ -16,6 +16,9 @@ class StopLimitOrder extends React.Component {
       limit: '$0.00',
       stop: '$0.00',
       exp: 'gfd',
+      focusStop: false,
+      focusLimit: false,
+      focusShare: false,
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleEstimatedCost = this.handleEstimatedCost.bind(this);
@@ -29,9 +32,34 @@ class StopLimitOrder extends React.Component {
     this.handleBPPopUpClick = this.handleBPPopUpClick.bind(this);
     this.renderMarketPricePopUp = this.renderMarketPricePopUp.bind(this);
     this.renderBuyPowerPopUp = this.renderBuyPowerPopUp.bind(this);
-    this.renderBuyPower = this.renderBuyPower.bind(this);this.handleEXPChange = this.handleEXPChange.bind(this);
+    this.renderBuyPower = this.renderBuyPower.bind(this);this.handleEXPChange = this.handleEXPChange.bind(this);this.handleLimitClick = this.handleLimitClick.bind(this);
+    this.handleShareClick = this.handleShareClick.bind(this);
+    this.handleStopClick = this.handleStopClick.bind(this);
   }
-  
+  handleStopClick(e) {
+    e.preventDefault();
+    this.setState({
+      focusLimit: false,
+      focusShare: false,
+      focusStop: true
+    })
+  }
+  handleLimitClick(e) {
+    e.preventDefault();
+    this.setState({
+      focusLimit: true,
+      focusShare: false,
+      focusStop: false
+    })
+  }
+  handleShareClick(e) {
+    e.preventDefault();
+    this.setState({
+      focusLimit: false,
+      focusShare: true,
+      focusStop: false
+    })
+  }
   handleEXPChange(val) {
     this.setState({
       exp: val
@@ -435,15 +463,40 @@ class StopLimitOrder extends React.Component {
           <Spacing></Spacing>
           <Wrapper>
             <WhiteText>Stop Price</WhiteText>
-            <ShareSearch className="stopInput" placeholder={this.state.stop} type="text" value={this.state.stop} name="stop" onChange={this.handleStopChange}></ShareSearch>
+            <ShareSearch 
+              className="stopInput" 
+              placeholder={this.state.stop} 
+              type="text" 
+              value={this.state.stop} 
+              name="stop" 
+              onChange={this.handleStopChange}
+              autoFocus={this.state.focusStop}
+              onClick={this.handleStopClick}
+            />
           </Wrapper>
           <Wrapper>
             <WhiteText>Limit Price</WhiteText>
-            <ShareSearch className="limitInput" placeholder={this.state.limit} type="text" value={this.state.limit} name="limit" onChange={this.handleLimitChange}></ShareSearch>
+            <ShareSearch 
+              className="limitInput" 
+              placeholder={this.state.limit} 
+              type="text" 
+              value={this.state.limit} 
+              name="limit" 
+              onChange={this.handleLimitChange}
+              autoFocus={this.state.focusLimit}
+              onClick={this.handleLimitClick}
+            />
           </Wrapper>
           <Wrapper>
             <WhiteText>Shares</WhiteText>
-            <ShareSearch className="sharesInput" placeholder={this.state.shares} type="number" value={this.state.shares} name="shares" onChange={this.handleChange}></ShareSearch>
+            <ShareSearch 
+              type="number" 
+              value={this.state.shares} 
+              name="shares" 
+              onChange={this.handleChange} 
+              autoFocus={this.state.focusShare}
+              onClick={this.handleShareClick}
+            />
           </Wrapper>
           <Wrapper>
             <WhiteText className="marketPrice">Expires</WhiteText>

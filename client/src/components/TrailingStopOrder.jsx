@@ -19,6 +19,7 @@ class TrailingStopOrder extends React.Component {
       inputType: 'Percentage',
       tt: 'gfd',
       exp: 'gfd',
+      focusShare: false,
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleEstimatedCost = this.handleEstimatedCost.bind(this);
@@ -34,8 +35,23 @@ class TrailingStopOrder extends React.Component {
     this.renderBuyPowerPopUp = this.renderBuyPowerPopUp.bind(this);
     this.renderBuyPower = this.renderBuyPower.bind(this);
     this.handleEXPChange = this.handleEXPChange.bind(this);
+    this.handleShareClick = this.handleShareClick.bind(this);
+    this.handleOtherClick = this.handleOtherClick.bind(this);
   }
-  
+
+  handleOtherClick(e) {
+    e.preventDefault();
+    this.setState({
+      focusShare: false,
+    })
+  }
+
+  handleShareClick(e) {
+    e.preventDefault();
+    this.setState({
+      focusShare: true,
+    })
+  }
   handleEXPChange(val) {
     this.setState({
       exp: val
@@ -116,7 +132,6 @@ class TrailingStopOrder extends React.Component {
   }
   
   handleTrailInputChange(value, type) {
-    console.log('value :', value)
     this.setState({
       inputType: value,
       tt: type
@@ -210,7 +225,7 @@ class TrailingStopOrder extends React.Component {
   
   handleEstimatedCost() {
     let share = Number(this.state.shares)
-    let price = Number(this.state.stop.slice(1, this.state.stop.length));
+    let price = Number(this.props.stock.price.slice(1, this.props.stock.price.length));
     let estimPrice = share * price;
     let buyingPower = Number(this.props.power.slice(1, this.props.power.length))
     let remaining = buyingPower - estimPrice
@@ -438,7 +453,14 @@ class TrailingStopOrder extends React.Component {
           </div>
           <Wrapper>
             <WhiteText>Shares</WhiteText>
-            <ShareSearch className="sharesInput" placeholder={this.state.shares} type="number" value={this.state.shares} name="shares" onChange={this.handleChange}></ShareSearch>
+            <ShareSearch 
+              type="number" 
+              value={this.state.shares} 
+              name="shares" 
+              onChange={this.handleChange} 
+              autoFocus={this.state.focusShare}
+              onClick={this.handleShareClick}
+            />
           </Wrapper>
           <Wrapper>
             <WhiteText className="marketPrice">Expires</WhiteText>

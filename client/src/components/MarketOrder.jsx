@@ -130,9 +130,9 @@ class MarketOrder extends React.Component {
   }
 
   handleChange(e) {
-    let val = Math.floor(Number(e.target.value));
+    e.preventDefault();
     this.setState({
-      [e.target.name]: val
+      [e.target.name]: e.target.value
     }, this.handleEstimatedCost)
   }
   
@@ -180,7 +180,6 @@ class MarketOrder extends React.Component {
   renderReviewOrder() {
     const { reviewOrder } = this.state;
     let buyingPower = Number(this.props.power.slice(1, this.props.power.length))
-    const depositPrice = Number(this.state.estim) - buyingPower
     const ReviewButton = styled.button`
       color: rgb(27,27,29);
       font-family: 'DINPro-Medium', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -378,11 +377,17 @@ class MarketOrder extends React.Component {
     `;
     return (
       <div>
-        <form className="marketOrderForm">
+        <form key="marketOrderForm">
           <Spacing></Spacing>
           <Wrapper>
             <WhiteText>Shares</WhiteText>
-            <ShareSearch className="sharesInput" type="number" value={this.state.shares} name="shares" onChange={this.handleChange}></ShareSearch>
+            <ShareSearch 
+              type="number" 
+              value={this.state.shares} 
+              name="shares" 
+              onChange={this.handleChange} 
+              autoFocus={true}
+            />
           </Wrapper>
           <Wrapper>
             <MarketPrice className="marketPrice">Market Price <Question className="infolink" onClick={() => this.handleMPPopUpClick()}></Question></MarketPrice>

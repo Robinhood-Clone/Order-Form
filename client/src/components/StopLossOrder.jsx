@@ -15,6 +15,9 @@ class StopLossOrder extends React.Component {
       remaining: '',
       stop: '$0.00',
       exp: 'gfd',
+      focusStop: false,
+      focusShare: false,
+      
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleEstimatedCost = this.handleEstimatedCost.bind(this);
@@ -28,6 +31,25 @@ class StopLossOrder extends React.Component {
     this.renderMarketPricePopUp = this.renderMarketPricePopUp.bind(this);
     this.renderBuyPowerPopUp = this.renderBuyPowerPopUp.bind(this);
     this.renderBuyPower = this.renderBuyPower.bind(this);this.handleEXPChange = this.handleEXPChange.bind(this);
+    this.handleShareClick = this.handleShareClick.bind(this);
+    this.handleStopClick = this.handleStopClick.bind(this);
+  }
+
+  handleStopClick(e) {
+    e.preventDefault();
+    this.setState({
+      focusLimit: false,
+      focusShare: false,
+      focusStop: true
+    })
+  }
+  handleShareClick(e) {
+    e.preventDefault();
+    this.setState({
+      focusLimit: false,
+      focusShare: true,
+      focusStop: false
+    })
   }
   
   handleEXPChange(val) {
@@ -107,16 +129,6 @@ class StopLossOrder extends React.Component {
     this.setState({
       reviewOrder: 'default'
     })
-  }
-  
-  handleCheckBoxChange(e) {
-    e.preventDefault();
-    console.log('change triggered')
-    this.setState((p) => {
-      return {
-        checked: !p.checked
-      }
-    }, () => console.log('new state :', this.state.checked))
   }
 
   handleBuy(e) {
@@ -346,16 +358,6 @@ class StopLossOrder extends React.Component {
       width: 100%;
       padding-top: 15px;
     `;
-    const BuyPower = styled.h5`
-      font-size: 12px;
-      color: rgb(238,84,53);
-      font-style: normal;
-      position: relative;
-      text-align: center;
-      width: 100%;
-      border-top: 0.5px solid black;
-      padding-top: 15px;
-  `;
     const ShareSearch = styled.input`
       background: rgb(23,23,24);
       border: transparent;
@@ -397,24 +399,6 @@ class StopLossOrder extends React.Component {
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
       }
     `;
-    const Options = styled.option`
-      font-size: 12px;
-    `;
-    const Checkbox = styled.input`
-      position: relative;
-      top: 10px;
-      float: left;
-      left: 20px;
-    `;
-    const CheckboxText = styled.h5`
-      font-size: 12px;
-      color: rgb(140,140,142);
-      font-style: normal;
-      position: relative;
-      right: 45px;
-      width: 170px;
-      top: 10px;
-    `;
     const UnderLineMini = styled.div`
       width: 230px;
       border-bottom: 1px solid black;
@@ -436,11 +420,27 @@ class StopLossOrder extends React.Component {
           <Spacing></Spacing>
           <Wrapper>
             <WhiteText>Stop Price</WhiteText>
-            <ShareSearch className="stopInput" placeholder={this.state.stop} type="text" value={this.state.stop} name="stop" onChange={this.handleStopChange}></ShareSearch>
+            <ShareSearch 
+              className="stopInput" 
+              placeholder={this.state.stop} 
+              type="text" 
+              value={this.state.stop} 
+              name="stop" 
+              onChange={this.handleStopChange}
+              autoFocus={this.state.focusStop}
+              onClick={this.handleStopClick}
+            />
           </Wrapper>
           <Wrapper>
             <WhiteText>Shares</WhiteText>
-            <ShareSearch className="sharesInput" placeholder={this.state.shares} type="number" value={this.state.shares} name="shares" onChange={this.handleChange}></ShareSearch>
+            <ShareSearch 
+              type="number" 
+              value={this.state.shares} 
+              name="shares" 
+              onChange={this.handleChange} 
+              autoFocus={this.state.focusShare}
+              onClick={this.handleShareClick}
+            />
           </Wrapper>
           <Wrapper>
             <WhiteText className="marketPrice">Expires</WhiteText>

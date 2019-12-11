@@ -17,6 +17,8 @@ class LimitOrder extends React.Component {
       checked: false,
       added: '',
       exp: 'gfd',
+      focusLimit: false,
+      focusShare: false,
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleEstimatedCost = this.handleEstimatedCost.bind(this);
@@ -31,6 +33,23 @@ class LimitOrder extends React.Component {
     this.renderMarketPricePopUp = this.renderMarketPricePopUp.bind(this);
     this.renderBuyPowerPopUp = this.renderBuyPowerPopUp.bind(this);
     this.renderBuyPower = this.renderBuyPower.bind(this);this.handleEXPChange = this.handleEXPChange.bind(this);
+    this.handleLimitClick = this.handleLimitClick.bind(this);
+    this.handleShareClick = this.handleShareClick.bind(this);
+  }
+
+  handleLimitClick(e) {
+    e.preventDefault();
+    this.setState({
+      focusLimit: true,
+      focusShare: false
+    })
+  }
+  handleShareClick(e) {
+    e.preventDefault();
+    this.setState({
+      focusLimit: false,
+      focusShare: true
+    })
   }
   
   handleEXPChange(val) {
@@ -114,12 +133,11 @@ class LimitOrder extends React.Component {
   
   handleCheckBoxChange(e) {
     e.preventDefault();
-    console.log('change triggered')
     this.setState((p) => {
       return {
         checked: !p.checked
       }
-    }, () => console.log('new state :', this.state.checked))
+    })
   }
 
   handleBuy(e) {
@@ -439,11 +457,26 @@ class LimitOrder extends React.Component {
           <Spacing></Spacing>
           <Wrapper>
             <WhiteText>Limit Price</WhiteText>
-            <ShareSearch className="limitInput" placeholder={this.state.limit} type="text" value={this.state.limit} name="limit" onChange={this.handleLimitChange}></ShareSearch>
+            <ShareSearch 
+              className="limitInput" 
+              placeholder={this.state.limit} 
+              type="text" value={this.state.limit} 
+              name="limit" 
+              onChange={this.handleLimitChange}
+              autoFocus={this.state.focusLimit}
+              onClick={this.handleLimitClick}
+            />
           </Wrapper>
           <Wrapper>
             <WhiteText>Shares</WhiteText>
-            <ShareSearch className="sharesInput" placeholder={this.state.shares} type="number" value={this.state.shares} name="shares" onChange={this.handleChange}></ShareSearch>
+            <ShareSearch 
+              type="number" 
+              value={this.state.shares} 
+              name="shares" 
+              onChange={this.handleChange} 
+              autoFocus={this.state.focusShare}
+              onClick={this.handleShareClick}
+            />
           </Wrapper>
           <Wrapper className="custom-select">
             <WhiteText className="marketPrice">Expires</WhiteText>

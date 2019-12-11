@@ -1,9 +1,12 @@
 const Sequelize = require('sequelize');
+const Op = require('Sequelize').Op
+
 
 const sequelize = new Sequelize('robinhoodclone', 'root', 'young', {
   host: 'localhost',
   dialect: 'mysql'
 })
+
 const Stock = sequelize.define('Stock', {
   stock_name: Sequelize.STRING,
   stock_symbol: Sequelize.STRING,
@@ -18,8 +21,12 @@ const User = sequelize.define('User', {
 User.sync();
 
 module.exports = {
-  getStockData: (callback) => {
-    Stock.findAll()
+  getStockData: (id, callback) => {
+    Stock.findAll({
+      where: {
+        [Op.or] : [{ stock_symbol : id}, { id: id }]
+      }
+    })
     .then((data) => {
       callback(null, data);
     })

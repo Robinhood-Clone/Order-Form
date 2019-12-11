@@ -30,7 +30,10 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.getRandomStock();
+    let path = location.pathname;
+    let stockSymbol = path.substring(8, path.length - 1)
+    console.log(stockSymbol)
+    this.getRandomStock(stockSymbol);
     this.getUserPower();
   }
 
@@ -55,7 +58,7 @@ class App extends React.Component {
       success: (data) => {
         this.setState({
           power: data[0].power
-        }, () => console.log(this.state.power))
+        })
       }
     })
   }
@@ -69,21 +72,20 @@ class App extends React.Component {
     //   },
     //   success: () => console.log('successfully updated')
     // })
-    console.log('shares :', shares);
     if (this.state.buy === true) {
       this.setState((p) => {
         return {
           power: newPower,
           owns: p.owns + shares
         }
-      }, () => console.log('new state :', this.state))
+      })
     } else {
       this.setState((p) => {
         return {
           power: newPower,
           owns: p.owns - shares
         }
-      }, () => console.log('new state :', this.state))
+      })
     }
   }
 
@@ -143,14 +145,14 @@ class App extends React.Component {
     }
   }
 
-  getRandomStock() {
+  getRandomStock(stockSymbol) {
     ajax({
-      url: 'http://localhost:5050/stocks',
+      url: `http://localhost:5050/stocks/?stock_symbol=${stockSymbol}`,
       method: 'GET',
       success: (data) => {
-        let randomIndex = Math.floor(Math.random() * data.length);
+        console.log('data :', data);
         this.setState({
-          stock: data[randomIndex]
+          stock: data[0]
         })
       }
     })
