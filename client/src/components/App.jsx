@@ -246,27 +246,35 @@ class App extends React.Component {
       top: 13px;
       left: 90px;
     `;
+    const Wrapper = styled.div`
+      display: flex;
+      position: relative;
+    `;
     if (this.state.buy === true) {
+      
       return (
         <div>
-          <BackGround>
-            <div className="header">
-              <SelectHeader onClick={this.handleBuyClick} className="buyHeader">Buy {this.state.stock.stock_symbol}</SelectHeader>
-              <Header onClick={this.handleSellClick} className="sellHeader">Sell {this.state.stock.stock_symbol}</Header>
-              <Dropdown orderType={this.state.orderType} handleDropDown={this.handleDropDown}/>
-            </div>
-            <UnderLine></UnderLine>
-            <UnderLineBuy></UnderLineBuy>
-            <div className="main">
-              {this.renderView()}
-            </div>
-          </BackGround>
-            <WatchButton className="watchButton" onClick={this.toggleWatch}> {this.state.watch === false ? 'Add to Watchlist' : 'Remove from WatchList'} </WatchButton>
+          <Wrapper>
+            <BackGround>
+              <div className="header">
+                <SelectHeader onClick={this.handleBuyClick} className="buyHeader">Buy {this.state.stock.stock_symbol}</SelectHeader>
+                <Header onClick={this.handleSellClick} className="sellHeader">Sell {this.state.stock.stock_symbol}</Header>
+                <Dropdown orderType={this.state.orderType} handleDropDown={this.handleDropDown}/>
+              </div>
+              <UnderLine></UnderLine>
+              <UnderLineBuy></UnderLineBuy>
+              <div className="main">
+                {this.renderView()}
+              </div>
+            </BackGround>
+          </Wrapper>
+          <WatchButton className="watchButton" onClick={this.toggleWatch}> {this.state.watch === false ? 'Add to Watchlist' : 'Remove from WatchList'} </WatchButton>
         </div>
       );
     } else {
       return (
         <div>
+          <Wrapper>
           <BackGround>
             <div className="header">
               <Header2 onClick={this.handleBuyClick} className="buyHeader">Buy {this.state.stock.stock_symbol}</Header2>
@@ -279,7 +287,8 @@ class App extends React.Component {
               {this.renderView()}
             </div>
           </BackGround>
-            <WatchButton className="watchButton" onClick={this.toggleWatch}> {this.state.watch === false ? 'Add to Watchlist' : 'Remove from WatchList'} </WatchButton>
+          </Wrapper>
+          <WatchButton className="watchButton" onClick={this.toggleWatch}> {this.state.watch === false ? 'Add to Watchlist' : 'Remove from WatchList'} </WatchButton>
         </div>
       );
     }

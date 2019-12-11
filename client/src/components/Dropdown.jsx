@@ -158,17 +158,21 @@ class Dropdown extends React.Component {
       color: rgb(255,255,255);
       position: absolute;
       left: 235px;
-      top: 12px;
+      top: -33px;
       font-size: 30px;
       :hover {
         color: rgb(238,84,53);
       }
     `;
+    const Wrapper = styled.div`
+      display: flex;
+      position: relative;
+    `;
     return (
-      <div>
+      <Wrapper>
         <Dots onClick={this.toggleList}>···</Dots>
         <div>{this.renderDropDown()}</div>
-      </div>
+      </Wrapper>
     );
   }
 }
