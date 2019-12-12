@@ -4,7 +4,6 @@ const port = 5050;
 const path = require('path');
 const Controller = require('./controller.js');
 const bodyParser = require('body-parser');
-const db = require('../database/dbinit.js');
 var cors = require('cors')
 
 app.use(cors());

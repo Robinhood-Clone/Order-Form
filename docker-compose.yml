@@ -1,0 +1,20 @@
+version: '2'
+services:
+  results: 
+    image: mysql:5.7.28
+    restart: always
+    environment:
+      MYSQL_USER: 'root'
+      MYSQL_ROOT_PASSWORD: 'young'
+      MYSQL_DATABASE: 'robinhoodclone'
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    ports:
+      - '3306:3306'
+  app:
+    restart: always
+    build: .
+    ports:
+      - '5050:5050'
+    depends_on:
+      - 'results'
+    command: bash -c "./wait-for-it.sh results:3306 && npm run db:seed && npm run server:dev"

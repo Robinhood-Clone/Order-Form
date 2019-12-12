@@ -1,10 +1,11 @@
 const Sequelize = require('sequelize');
-const Op = require('Sequelize').Op
+const Op = require('sequelize').Op
 
 
 const sequelize = new Sequelize('robinhoodclone', 'root', 'young', {
-  host: 'localhost',
-  dialect: 'mysql'
+  host: 'results',
+  dialect: 'mysql',
+  logging: false,
 })
 
 const Stock = sequelize.define('Stock', {
@@ -13,11 +14,14 @@ const Stock = sequelize.define('Stock', {
   owner: Sequelize.STRING,
   price: Sequelize.STRING
 })
+
 Stock.sync();
+
 const User = sequelize.define('User', {
   username: Sequelize.STRING,
   power: Sequelize.STRING,
 })
+
 User.sync();
 
 module.exports = {
