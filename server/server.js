@@ -5,8 +5,11 @@ const path = require('path');
 const Controller = require('./controller.js');
 const bodyParser = require('body-parser');
 var cors = require('cors')
+const compression = require('compression');
+
 
 app.use(cors());
+app.use(compression());
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
@@ -19,6 +22,12 @@ app.param('stock_symbol', function(req, res, next, stock_symbol) {
 app.use('/', express.static(path.join(__dirname, '../client/dist')));
 
 app.use('/stocks/:stock_symbol', express.static(path.join(__dirname, '../client/dist')));
+
+app.get('*.js', function (req, res, next) {
+    req.url = req.url + '.gz';
+    res.set('Content-Encoding', 'gzip');
+    next();
+  });
 
 app.get('/stocks', (req, res) => {
     let id = req.query.stock_symbol
