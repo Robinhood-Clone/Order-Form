@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "webpack:dev": "webpack -w -d --config webpack.config.js",
-    "server:dev": "nodemon server/server.js",
+    "server:dev": "node server/server.js",
     "db:init": "node database/dbinit.js",
     "db:seed": "node database/seed.js",
     "test:coverage": "jest --coverage --colors",
@@ -26,7 +26,10 @@
   },
   "homepage": "https://github.com/Robinhood-Clone/Order-Form-Proxy#readme",
   "dependencies": {
+  },
+  "devDependencies": {
     "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "jquery": "^3.4.1",
     "mysql": "^2.17.1",
@@ -34,9 +37,7 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "sequelize": "^5.21.2",
-    "styled-components": "^4.4.1"
-  },
-  "devDependencies": {
+    "styled-components": "^4.4.1",
     "@babel/core": "^7.7.4",
     "@babel/plugin-proposal-class-properties": "^7.7.4",
     "@babel/polyfill": "^7.7.0",

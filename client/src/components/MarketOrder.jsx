@@ -66,13 +66,13 @@ class MarketOrder extends React.Component {
   renderBuyPower() {
     const BuyPower = styled.h5`
       font-size: 12px;
-      color: rgb(238,84,53);
+      color: rgb(93,207,154);
       font-style: normal;
       position: relative;
       font-family: 'DINPro-Medium', -apple-system, BlinkMacSystemFont, sans-serif;
       text-align: center;
       width: 100%;
-      border-top: 0.5px solid black;
+      border-top: 0.5px solid rgb(244,244,245);
       padding-top: 15px;
     `;
     const Question = styled.a`
@@ -130,12 +130,14 @@ class MarketOrder extends React.Component {
   }
 
   handleChange(e) {
+    e.preventDefault();
     this.setState({
-      [e.target.name]: Math.floor(Number(e.target.value))
-    }, this.handleEstimatedCost(Math.floor(Number(e.target.value))))
+      [e.target.name]: e.target.value
+    }, this.handleEstimatedCost)
   }
   
-  handleEstimatedCost(share) {
+  handleEstimatedCost() {
+    let share = Number(this.state.shares)
     let price = Number(this.props.stock.price.slice(1, this.props.stock.price.length));
     let estimPrice = share * price;
     let buyingPower = Number(this.props.power.slice(1, this.props.power.length))
@@ -178,14 +180,13 @@ class MarketOrder extends React.Component {
   renderReviewOrder() {
     const { reviewOrder } = this.state;
     let buyingPower = Number(this.props.power.slice(1, this.props.power.length))
-    const depositPrice = Number(this.state.estim) - buyingPower
     const ReviewButton = styled.button`
       color: rgb(27,27,29);
       font-family: 'DINPro-Medium', -apple-system, BlinkMacSystemFont, sans-serif;
       font-size: 12px;
       width: 230px;
       text-align: center;
-      background: rgb(238,84,53);
+      background: rgb(93,207,154);
       height: 50px;
       border: transparent;
       position: relative;
@@ -197,13 +198,13 @@ class MarketOrder extends React.Component {
       }
     `;
     const ReviewButton2 = styled.button`
-      color: rgb(238,84,53);
+      color: rgb(93,207,154);
       font-family: 'DINPro-Medium', -apple-system, BlinkMacSystemFont, sans-serif;
       width: 230px;
       text-align: center;
       background: rgb(27,27,29);
       height: 50px;
-      border-color: rgb(238,84,53);
+      border-color: rgb(93,207,154);
       border-width: 1px;
       position: relative;
       left: 22.5px;
@@ -212,7 +213,7 @@ class MarketOrder extends React.Component {
     `;
     const WhiteTextMessage = styled.h5`
       font-size: 12px;
-      color: rgb(255,255,255);
+      color: rgb(23,23,24);
       font-style: normal;
       position: relative;
       left: 22.5px;
@@ -222,7 +223,7 @@ class MarketOrder extends React.Component {
     `;
     const WhiteTextMessage2 = styled.h5`
       font-size: 12.5px;
-      color: rgb(255,255,255);
+      color: rgb(23,23,24);
       font-style: normal;
       position: relative;
       font-family: 'DINPro-Medium', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -300,7 +301,7 @@ class MarketOrder extends React.Component {
     `;
     const WhiteText = styled.h5`
       font-size: 12px;
-      color: rgb(255,255,255);
+      color: rgb(23,23,24);
       font-style: normal;
       position: relative;
       left: 22.5px;
@@ -308,7 +309,7 @@ class MarketOrder extends React.Component {
     `;
     const WhiteTextBold = styled.h5`
       font-size: 12px;
-      color: rgb(255,255,255);
+      color: rgb(23,23,24);
       font-style: normal;
       position: relative;
       font-family: 'DINPro-Medium', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -317,7 +318,7 @@ class MarketOrder extends React.Component {
     `;
     const MarketPrice = styled.h5`
       font-size: 12px;
-      color: rgb(238,84,53);
+      color: rgb(93,207,154);
       font-style: normal;
       font-family: 'DINPro-Medium', -apple-system, BlinkMacSystemFont, sans-serif;
       position: relative;
@@ -325,9 +326,9 @@ class MarketOrder extends React.Component {
       top: 10px;
       `;
     const ShareSearch = styled.input`
-      background: rgb(23,23,24);
+      background: rgb(250,250,250);
       border: transparent;
-      color: rgb(255,255,255);
+      color: rgb(23,23,24);
       width: 80px;
       position: relative;
       height: 35px;
@@ -336,12 +337,12 @@ class MarketOrder extends React.Component {
       font-size: 12px;
       text-align: right;
       :hover {
-        border: 1px solid rgb(140,140,142);
+        border: 1px solid rgb(203,203,205);
       }
       border-radius: 5px;
     `;
     const EstimatedCostWhite = styled.h5`
-      color: rgb(255,255,255);
+      color: rgb(23,23,24);
       text-align: right;
       font-family: 'DINPro-Medium', -apple-system, BlinkMacSystemFont, sans-serif;
       position: relative;
@@ -352,7 +353,7 @@ class MarketOrder extends React.Component {
     `;
     const UnderLine = styled.div`
       width: 230px;
-      border-bottom: 0.5px solid black;
+      border-bottom: 0.5px solid rgb(244,244,245);
       align: center;
       position: relative;
       top: 10px;
@@ -363,7 +364,7 @@ class MarketOrder extends React.Component {
     `;
     const MarketPriceWhite = styled.h5`
       font-size: 12px;
-      color: rgb(255,255,255);
+      color: rgb(23,23,24);
       font-style: normal;
       position: relative;
       font-family: 'DINPro-Medium', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -376,11 +377,17 @@ class MarketOrder extends React.Component {
     `;
     return (
       <div>
-        <form className="marketOrderForm">
+        <form key="marketOrderForm">
           <Spacing></Spacing>
           <Wrapper>
             <WhiteText>Shares</WhiteText>
-            <ShareSearch className="sharesInput" type="number" value={this.state.shares} name="shares" onChange={this.handleChange}></ShareSearch>
+            <ShareSearch 
+              type="number" 
+              value={this.state.shares} 
+              name="shares" 
+              onChange={this.handleChange} 
+              autoFocus={true}
+            />
           </Wrapper>
           <Wrapper>
             <MarketPrice className="marketPrice">Market Price <Question className="infolink" onClick={() => this.handleMPPopUpClick()}></Question></MarketPrice>

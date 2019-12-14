@@ -12,7 +12,7 @@ class BuyingPowerPopUp extends React.Component {
     const PopUp = styled.div`
       position: absolute;
       left: 70px;
-      background: rgb(27,27,29);
+      background: rgb(255,255,255);
       border-radius: 5px;
       width: 240px;
       z-index: 9;
@@ -20,7 +20,7 @@ class BuyingPowerPopUp extends React.Component {
     `;
     const WhiteText = styled.h5`
       font-size: 11px;
-      color: rgb(255,255,255);
+      color: rgb(23,23,24);
       font-style: normal;
       position: relative;
       padding-left: 10px;
@@ -28,21 +28,21 @@ class BuyingPowerPopUp extends React.Component {
     const WhiteTextBold = styled.h5`
       font-size: 11px;
       font-family: 'DINPro-Medium', -apple-system, BlinkMacSystemFont, sans-serif;
-      color: rgb(255,255,255);
+      color: rgb(23,23,24);
       font-style: normal;
       position: relative;
       padding-left: 10px;
     `;
     const Price = styled.h5`
       font-size: 11px;
-      color: rgb(255,255,255);
+      color: rgb(23,23,24);
       font-style: normal;
       position: relative;
       padding-right: 10px;
     `;
     const PriceBold = styled.h5`
       font-size: 11px;
-      color: rgb(255,255,255);
+      color: rgb(23,23,24);
       font-style: normal;
       position: relative;
       padding-right: 10px;
@@ -54,7 +54,7 @@ class BuyingPowerPopUp extends React.Component {
       justify-content: space-between;
     `;
     const PopUpTitle = styled.div`
-      color: rgb(255,255,255);
+      color: rgb(23,23,24);
       font-size 11px;
       position: relative;
       padding: 15px;

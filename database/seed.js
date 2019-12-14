@@ -1,8 +1,9 @@
 const Sequelize = require('sequelize');
 
 const sequelize = new Sequelize('robinhoodclone', 'root', 'young', {
-  host: 'localhost',
-  dialect: 'mysql'
+  host: 'results',
+  dialect: 'mysql',
+  logging: false,
 })
 
 const Stock = sequelize.define('Stock', {

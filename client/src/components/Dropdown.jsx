@@ -15,7 +15,6 @@ class Dropdown extends React.Component {
   
   handleDropDownClick(e) {
     e.preventDefault();
-    console.log(e.target.value)
     this.props.handleDropDown(e.target.value)
   }
 
@@ -23,14 +22,14 @@ class Dropdown extends React.Component {
     const Dropdown = styled.div`
       position: absolute;
       left: 70px;
-      background: rgb(27,27,29);
+      background: rgb(255,255,255);
       border-radius: 5px;
       width: 180px;
       z-index: 10;
       box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     `;
     const DropDownButton = styled.button`
-      color: rgb(255,255,255);
+      color: rgb(23,23,24);
       font-size 13px;
       background: transparent;
       border: transparent;
@@ -38,21 +37,21 @@ class Dropdown extends React.Component {
       padding-top: 10px;
       padding-bottom: 10px;
       :hover {
-        color: rgb(238,84,53);
+        color: rgb(93,207,154);
       }
     `;
     const DropDownButtonSelect = styled.button`
-      color: rgb(238,84,53);
+      color: rgb(93,207,154);
       font-size 13px;
       background: transparent;
       border: transparent;
       text-indent: 15px;
       padding-top: 10px;
       padding-bottom: 10px;
-      border-left: 2px solid rgb(238,84,53);
+      border-left: 2px solid rgb(93,207,154);
     `;
     const DropdownTitle = styled.div`
-      color: rgb(255,255,255);
+      color: rgb(23,23,24);
       font-size 14px;
       position: relative;
       text-indent: 20px;
@@ -156,20 +155,24 @@ class Dropdown extends React.Component {
   }
   render() {
     const Dots = styled.div`
-      color: rgb(255,255,255);
+      color: rgb(23,23,24);
       position: absolute;
       left: 235px;
-      top: 12px;
+      top: -33px;
       font-size: 30px;
       :hover {
-        color: rgb(238,84,53);
+        color: rgb(93,207,154);
       }
     `;
+    const Wrapper = styled.div`
+      display: flex;
+      position: relative;
+    `;
     return (
-      <div>
+      <Wrapper>
         <Dots onClick={this.toggleList}>···</Dots>
         <div>{this.renderDropDown()}</div>
-      </div>
+      </Wrapper>
     );
   }
 }

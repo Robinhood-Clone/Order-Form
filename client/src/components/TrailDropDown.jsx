@@ -39,9 +39,9 @@ class TrailDropDown extends React.Component{
       justify-content: space-between;
     `;
     const Option = styled.div`
-      background: rgb(27,27,29);
-      border: 0.5px solid black;
-      color: rgb(255,255,255);
+      background: rgb(255,255,255);
+      color: rgb(23,23,24);
+      border: 0.5px solid rgb(250,250,250);
       width: 141px;
       position: absolute;
       top: 70px;
@@ -51,12 +51,12 @@ class TrailDropDown extends React.Component{
       padding-bottom: 11px;
       z-index: 8;
       :hover {
-        background: rgb(23,23,24);
+        background: rgb(250,250,250);
       }
     `;
     const OptionSelect = styled.div`
-      background: rgb(238,84,53);
-      border: 0.5px solid black;
+      background: rgb(93,207,154);
+      border: 0.5px solid rgb(250,250,250);
       color: rgb(23,23,24);
       width: 141px;
       position: absolute;
@@ -88,9 +88,9 @@ class TrailDropDown extends React.Component{
 
   render() {
     const GoodForDay = styled.div`
-      background: rgb(27,27,29);
-      border: 0.5px solid black;
-      color: rgb(255,255,255);
+      background: rgb(255,255,255);
+      border: 0.5px solid rgb(250,250,250);
+      color: rgb(23,23,24);
       width: 141px;
       position: relative;
       top: 10px;
@@ -105,7 +105,6 @@ class TrailDropDown extends React.Component{
       }
     `;
     if (this.props.exp === 'gfd') {
-      console.log('this.state inside gfd :', this.state);
       return (
         <GoodForDay onClick={this.handleClick}>
           Percentage ▼
@@ -113,7 +112,6 @@ class TrailDropDown extends React.Component{
         </GoodForDay>
       );
     } else {
-      console.log('this.state inside gtc :', this.state);
       return (
         <GoodForDay onClick={this.handleClick}>
           Amount ▼

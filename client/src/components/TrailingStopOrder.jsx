@@ -19,6 +19,7 @@ class TrailingStopOrder extends React.Component {
       inputType: 'Percentage',
       tt: 'gfd',
       exp: 'gfd',
+      focusShare: false,
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleEstimatedCost = this.handleEstimatedCost.bind(this);
@@ -34,8 +35,23 @@ class TrailingStopOrder extends React.Component {
     this.renderBuyPowerPopUp = this.renderBuyPowerPopUp.bind(this);
     this.renderBuyPower = this.renderBuyPower.bind(this);
     this.handleEXPChange = this.handleEXPChange.bind(this);
+    this.handleShareClick = this.handleShareClick.bind(this);
+    this.handleOtherClick = this.handleOtherClick.bind(this);
   }
-  
+
+  handleOtherClick(e) {
+    e.preventDefault();
+    this.setState({
+      focusShare: false,
+    })
+  }
+
+  handleShareClick(e) {
+    e.preventDefault();
+    this.setState({
+      focusShare: true,
+    })
+  }
   handleEXPChange(val) {
     this.setState({
       exp: val
@@ -81,13 +97,13 @@ class TrailingStopOrder extends React.Component {
   renderBuyPower() {
     const BuyPower = styled.h5`
       font-size: 12px;
-      color: rgb(238,84,53);
+      color: rgb(93,207,154);
       font-style: normal;
       position: relative;
       font-family: 'DINPro-Medium', -apple-system, BlinkMacSystemFont, sans-serif;
       text-align: center;
       width: 100%;
-      border-top: 0.5px solid black;
+      border-top: 0.5px solid rgb(244,244,245);
       padding-top: 15px;
     `;
     const Question = styled.a`
@@ -116,7 +132,6 @@ class TrailingStopOrder extends React.Component {
   }
   
   handleTrailInputChange(value, type) {
-    console.log('value :', value)
     this.setState({
       inputType: value,
       tt: type
@@ -131,16 +146,17 @@ class TrailingStopOrder extends React.Component {
     `;
     const WhiteText = styled.h5`
       font-size: 11px;
-      color: rgb(255,255,255);
+      color: rgb(23,23,24);
       font-style: normal;
       position: relative;
       left: 22.5px;
       top: 10px;
+      
     `;
     const ShareSearch = styled.input`
-      background: rgb(23,23,24);
+      background: rgb(250,250,250);
       border: transparent;
-      color: rgb(255,255,255);
+      color: rgb(23,23,24);
       width: 140px;
       position: relative;
       height: 35px;
@@ -148,6 +164,10 @@ class TrailingStopOrder extends React.Component {
       right: 22.5px;
       font-size: 11px;
       text-align: right;
+      :hover {
+        border: 1px solid rgb(203,203,205);
+      }
+      border-radius: 5px;
     `;
     if (this.state.inputType === 'Percentage') {
       return (
@@ -205,7 +225,7 @@ class TrailingStopOrder extends React.Component {
   
   handleEstimatedCost() {
     let share = Number(this.state.shares)
-    let price = Number(this.state.stop.slice(1, this.state.stop.length));
+    let price = Number(this.props.stock.price.slice(1, this.props.stock.price.length));
     let estimPrice = share * price;
     let buyingPower = Number(this.props.power.slice(1, this.props.power.length))
     let remaining = buyingPower - estimPrice
@@ -251,7 +271,7 @@ class TrailingStopOrder extends React.Component {
       font-size: 12px;
       width: 230px;
       text-align: center;
-      background: rgb(238,84,53);
+      background: rgb(93,207,154);
       height: 50px;
       border: transparent;
       position: relative;
@@ -264,13 +284,13 @@ class TrailingStopOrder extends React.Component {
       }
     `;
     const ReviewButton2 = styled.button`
-      color: rgb(238,84,53);
+      color: rgb(93,207,154);
       width: 230px;
       text-align: center;
       background: rgb(27,27,29);
       font-family: 'DINPro-Medium', -apple-system, BlinkMacSystemFont, sans-serif;
       height: 50px;
-      border-color: rgb(238,84,53);
+      border-color: rgb(93,207,154);
       border-width: 1px;
       position: relative;
       left: 22.5px;
@@ -279,7 +299,7 @@ class TrailingStopOrder extends React.Component {
     `;
     const WhiteTextMessage = styled.h5`
       font-size: 12px;
-      color: rgb(255,255,255);
+      color: rgb(23,23,24);
       font-style: normal;
       position: relative;
       left: 22.5px;
@@ -289,7 +309,7 @@ class TrailingStopOrder extends React.Component {
     `;
     const WhiteTextMessage2 = styled.h5`
       font-size: 12.5px;
-      color: rgb(255,255,255);
+      color: rgb(23,23,24);
       font-style: normal;
       position: relative;
       left: 22.5px;
@@ -362,7 +382,7 @@ class TrailingStopOrder extends React.Component {
     `;
     const WhiteText = styled.h5`
       font-size: 12px;
-      color: rgb(255,255,255);
+      color: rgb(23,23,24);
       font-style: normal;
       position: relative;
       left: 22.5px;
@@ -370,7 +390,7 @@ class TrailingStopOrder extends React.Component {
     `;
     const WhiteTextBold = styled.h5`
       font-size: 12px;
-      color: rgb(255,255,255);
+      color: rgb(23,23,24);
       font-style: normal;
       position: relative;
       font-family: 'DINPro-Medium', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -379,7 +399,7 @@ class TrailingStopOrder extends React.Component {
     `;
     const MarketPrice = styled.h5`
       font-size: 12px;
-      color: rgb(238,84,53);
+      color: rgb(93,207,154);
       font-family: 'DINPro-Medium', -apple-system, BlinkMacSystemFont, sans-serif;
       font-style: normal;
       position: relative;
@@ -388,9 +408,9 @@ class TrailingStopOrder extends React.Component {
       padding-top: 15px;
     `;
     const ShareSearch = styled.input`
-      background: rgb(23,23,24);
+      background: rgb(250,250,250);
       border: transparent;
-      color: rgb(255,255,255);
+      color: rgb(23,23,24);
       width: 140px;
       position: relative;
       height: 35px;
@@ -399,12 +419,12 @@ class TrailingStopOrder extends React.Component {
       font-size: 12px;
       text-align: right;
       :hover {
-        border: 1px solid rgb(140,140,142);
+        border: 1px solid rgb(203,203,205);
       }
       border-radius: 5px;
     `;
     const EstimatedCostWhite = styled.h5`
-      color: rgb(255,255,255);
+      color: rgb(23,23,24);
       text-align: right;
       font-family: 'DINPro-Medium', -apple-system, BlinkMacSystemFont, sans-serif;
       position: relative;
@@ -420,6 +440,14 @@ class TrailingStopOrder extends React.Component {
       position: relative;
       top: -2px;
     `;
+    const UnderLineMini = styled.div`
+      width: 230px;
+      border-bottom: 1px solid rgb(244,244,245);
+      align: center;
+      position: relative;
+      top: 10px;
+      left: 22.5px;
+    `;
     return (
       <div>
         <form className="TrailingStopOrderForm">
@@ -433,12 +461,20 @@ class TrailingStopOrder extends React.Component {
           </div>
           <Wrapper>
             <WhiteText>Shares</WhiteText>
-            <ShareSearch className="sharesInput" placeholder={this.state.shares} type="number" value={this.state.shares} name="shares" onChange={this.handleChange}></ShareSearch>
+            <ShareSearch 
+              type="number" 
+              value={this.state.shares} 
+              name="shares" 
+              onChange={this.handleChange} 
+              autoFocus={this.state.focusShare}
+              onClick={this.handleShareClick}
+            />
           </Wrapper>
           <Wrapper>
             <WhiteText className="marketPrice">Expires</WhiteText>
             <ExpiresDropdown handleEXPChange={this.handleEXPChange} exp={this.state.exp} />
           </Wrapper>
+          <UnderLineMini></UnderLineMini>
           <Wrapper>
             <WhiteTextBold className="estimatedCost">{this.props.buy === true ? 'Estimated Cost ' : 'Estimated Credit ' }</WhiteTextBold>
             <EstimatedCostWhite>${this.state.estim}</EstimatedCostWhite>

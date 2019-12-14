@@ -30,7 +30,10 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.getRandomStock();
+    let path = location.pathname;
+    let stockSymbol = path.substring(8, path.length - 1)
+    console.log(stockSymbol)
+    this.getRandomStock(stockSymbol);
     this.getUserPower();
   }
 
@@ -55,7 +58,7 @@ class App extends React.Component {
       success: (data) => {
         this.setState({
           power: data[0].power
-        }, () => console.log(this.state.power))
+        })
       }
     })
   }
@@ -69,21 +72,20 @@ class App extends React.Component {
     //   },
     //   success: () => console.log('successfully updated')
     // })
-    console.log('shares :', shares);
     if (this.state.buy === true) {
       this.setState((p) => {
         return {
           power: newPower,
           owns: p.owns + shares
         }
-      }, () => console.log('new state :', this.state))
+      })
     } else {
       this.setState((p) => {
         return {
           power: newPower,
           owns: p.owns - shares
         }
-      }, () => console.log('new state :', this.state))
+      })
     }
   }
 
@@ -143,14 +145,14 @@ class App extends React.Component {
     }
   }
 
-  getRandomStock() {
+  getRandomStock(stockSymbol) {
     ajax({
-      url: '/stocks',
+      url: `/stocks/?stock_symbol=${stockSymbol}`,
       method: 'GET',
       success: (data) => {
-        let randomIndex = Math.floor(Math.random() * data.length);
+        console.log('data :', data);
         this.setState({
-          stock: data[randomIndex]
+          stock: data[0]
         })
       }
     })
@@ -158,7 +160,7 @@ class App extends React.Component {
 
   render() {
     const BackGround = styled.div`
-      background: rgb(27,27,29);
+      background: rgb(255,255,255);
       width: 275px;
       padding-top: 15px;
       padding-bottom: 2px;
@@ -171,11 +173,11 @@ class App extends React.Component {
       border: transparent;
       font-family: 'DINPro-Medium', -apple-system, BlinkMacSystemFont, sans-serif;
       font-size: 13px;
-      color: rgb(255,255,255);
+      color: rgb(23,23,24);
       position: absolute;
       left: 92.5px;
       :hover {
-        color: rgb(238,84,53);
+        color: rgb(93,207,154);
       }
     `;
     const SelectHeader2 = styled.button`
@@ -183,7 +185,7 @@ class App extends React.Component {
       border: transparent;
       font-family: 'DINPro-Medium', -apple-system, BlinkMacSystemFont, sans-serif;
       font-size: 13px;
-      color: rgb(238,84,53);
+      color: rgb(93,207,154);
       position: absolute;
       left: 92.5px;
     `;
@@ -191,13 +193,13 @@ class App extends React.Component {
       background: transparent;
       border: transparent;
       font-size: 13px;
-      color: rgb(255,255,255);
+      color: rgb(23,23,24);
       font-family: 'DINPro-Medium', -apple-system, BlinkMacSystemFont, sans-serif;
       position: relative;
       text-indent: 15px;
       top: -2px;
       :hover {
-        color: rgb(238,84,53);
+        color: rgb(93,207,154);
       }
     `;
     const SelectHeader = styled.button`
@@ -206,18 +208,18 @@ class App extends React.Component {
       font-size: 13px;
       font-family: 'DINPro-Medium', -apple-system, BlinkMacSystemFont, sans-serif;
       font-style: bold;
-      color: rgb(238,84,53);
+      color: rgb(93,207,154);
       position: relative;
       text-indent: 15px;
       top: -2px;
     `;
     const WatchButton = styled.button`
-      color: rgb(238,84,53);
+      color: rgb(93,207,154);
       width: 230px;
       text-align: center;
-      background: rgb(27,27,29);
+      background: rgb(255,255,255);
       height: 50px;
-      border-color: rgb(238,84,53);
+      border-color: rgb(93,207,154);
       border-width: 1px;
       position: relative;
       left: 22.5px;
@@ -226,45 +228,53 @@ class App extends React.Component {
     `;
     const UnderLine = styled.div`
       width: 275px;
-      border-top: 0.5px solid black;
+      border-top: 0.5px solid rgb(244,244,245);
       position: relative;
       top: 15px;
     `;
     const UnderLineBuy = styled.div`
       width: 60px;
-      border-top: 2px solid rgb(238,84,53);
+      border-top: 2px solid rgb(93,207,154);
       position: relative;
       top: 13px;
       left: 22.5px;
     `;
     const UnderLineSell = styled.div`
       width: 60px;
-      border-top: 2px solid rgb(238,84,53);
+      border-top: 2px solid rgb(93,207,154);
       position: relative;
       top: 13px;
       left: 90px;
     `;
+    const Wrapper = styled.div`
+      display: flex;
+      position: relative;
+    `;
     if (this.state.buy === true) {
+      
       return (
         <div>
-          <BackGround>
-            <div className="header">
-              <SelectHeader onClick={this.handleBuyClick} className="buyHeader">Buy {this.state.stock.stock_symbol}</SelectHeader>
-              <Header onClick={this.handleSellClick} className="sellHeader">Sell {this.state.stock.stock_symbol}</Header>
-              <Dropdown orderType={this.state.orderType} handleDropDown={this.handleDropDown}/>
-            </div>
-            <UnderLine></UnderLine>
-            <UnderLineBuy></UnderLineBuy>
-            <div className="main">
-              {this.renderView()}
-            </div>
-          </BackGround>
-            <WatchButton className="watchButton" onClick={this.toggleWatch}> {this.state.watch === false ? 'Add to Watchlist' : 'Remove from WatchList'} </WatchButton>
+          <Wrapper>
+            <BackGround>
+              <div className="header">
+                <SelectHeader onClick={this.handleBuyClick} className="buyHeader">Buy {this.state.stock.stock_symbol}</SelectHeader>
+                <Header onClick={this.handleSellClick} className="sellHeader">Sell {this.state.stock.stock_symbol}</Header>
+                <Dropdown orderType={this.state.orderType} handleDropDown={this.handleDropDown}/>
+              </div>
+              <UnderLine></UnderLine>
+              <UnderLineBuy></UnderLineBuy>
+              <div className="main">
+                {this.renderView()}
+              </div>
+            </BackGround>
+          </Wrapper>
+          <WatchButton className="watchButton" onClick={this.toggleWatch}> {this.state.watch === false ? 'Add to Watchlist' : 'Remove from WatchList'} </WatchButton>
         </div>
       );
     } else {
       return (
         <div>
+          <Wrapper>
           <BackGround>
             <div className="header">
               <Header2 onClick={this.handleBuyClick} className="buyHeader">Buy {this.state.stock.stock_symbol}</Header2>
@@ -277,7 +287,8 @@ class App extends React.Component {
               {this.renderView()}
             </div>
           </BackGround>
-            <WatchButton className="watchButton" onClick={this.toggleWatch}> {this.state.watch === false ? 'Add to Watchlist' : 'Remove from WatchList'} </WatchButton>
+          </Wrapper>
+          <WatchButton className="watchButton" onClick={this.toggleWatch}> {this.state.watch === false ? 'Add to Watchlist' : 'Remove from WatchList'} </WatchButton>
         </div>
       );
     }

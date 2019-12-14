@@ -18,7 +18,7 @@ class MarketPricePopUp extends React.Component {
     const PopUp = styled.div`
       position: absolute;
       left: 70px;
-      background: rgb(27,27,29);
+      background: rgb(255,255,255);
       border-radius: 5px;
       width: 240px;
       z-index: 9;
@@ -26,14 +26,14 @@ class MarketPricePopUp extends React.Component {
     `;
     const WhiteText = styled.h5`
       font-size: 11px;
-      color: rgb(255,255,255);
+      color: rgb(23,23,24);
       font-style: normal;
       position: relative;
       padding-left: 10px;
     `;
     const Price = styled.h5`
       font-size: 11px;
-      color: rgb(255,255,255);
+      color: rgb(23,23,24);
       font-style: normal;
       font-family: 'DINPro-Medium', -apple-system, BlinkMacSystemFont, sans-serif;
       position: relative;
@@ -45,22 +45,21 @@ class MarketPricePopUp extends React.Component {
       justify-content: space-between;
     `;
     const PopUpTitle = styled.div`
-      color: rgb(255,255,255);
+      color: rgb(23,23,24);
       font-size 13px;
       position: relative;
       padding: 15px;
-      border-bottom: 0.5px solid black;
+      border-bottom: 0.5px solid (244,244,245);
     `;
     const PopUpEnd = styled.div`
       color: rgb(203,203,205);
       font-size 10px;
       position: relative;
       padding: 15px;
-      border-bottom: 0.5px solid black;
     `;
     const UnderLine = styled.div`
       width: 220px;
-      border-top: 1px solid black;
+      border-top: 1px solid rgb(244,244,245);
       align: center;
       position: relative;
       left: 10px;

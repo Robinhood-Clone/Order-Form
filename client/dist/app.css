@@ -1,5 +1,4 @@
 body {
-  background: rgb(27,27,29);
   font-family: 'DINPro', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 input::-webkit-outer-spin-button,
@@ -21,9 +20,9 @@ input::-webkit-inner-spin-button {
     border-radius: 1.2ex;
     margin-right: 4px;
     padding: 1px;
-    color: rgb(238,84,53);
-    background: rgb(27,27,29);
-    border: 1px solid rgb(238,84,53);
+    color: rgb(94,207,156);
+    background: rgb(255,255,255);
+    border: 1px solid rgb(94,207,156);
     text-decoration: none;
 }
 .exclamation:before
@@ -40,9 +39,9 @@ input::-webkit-inner-spin-button {
     border-radius: 1.2ex;
     margin-right: 4px;
     padding: 1px;
-    color: rgb(27,27,29);
-    background: white;
-    border: 1px solid white;
+    color: white(27,27,29);
+    background: rgb(23,23,24);
+    border: 1px solid rgb(23,23,24);
     text-decoration: none;
 }
 
