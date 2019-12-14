@@ -40,9 +40,9 @@ class ExpiresDropdown extends React.Component{
       justify-content: space-between;
     `;
     const Option = styled.div`
-      background: rgb(27,27,29);
-      border: 0.5px solid black;
-      color: rgb(255,255,255);
+      background: rgb(255,255,255);
+      border: 0.5px solid rgb(250,250,250);
+      color: rgb(23,23,24);
       width: 141px;
       position: absolute;
       top: 70px;
@@ -52,12 +52,12 @@ class ExpiresDropdown extends React.Component{
       padding-bottom: 11px;
       z-index: 8;
       :hover {
-        background: rgb(23,23,24);
+        background: rgb(250,250,250);
       }
     `;
     const OptionSelect = styled.div`
-      background: rgb(238,84,53);
-      border: 0.5px solid black;
+      background: rgb(93,207,154);
+      border: 0.5px solid rgb(250,250,250);
       color: rgb(23,23,24);
       width: 141px;
       position: absolute;
@@ -89,10 +89,10 @@ class ExpiresDropdown extends React.Component{
 
   render() {
     const GoodForDay = styled.div`
-      background: rgb(27,27,29);
-      border: 0.5px solid black;
-      color: rgb(255,255,255);
+      background: rgb(255,255,255);
+      color: rgb(23,23,24);
       width: 141px;
+      border: 0.5px solid rgb(250,250,250);
       position: relative;
       top: 10px;
       right: 22.5px;
