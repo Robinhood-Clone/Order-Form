@@ -231,7 +231,7 @@ class StopLossOrder extends React.Component {
       top: 10px;
       border-radius: 5px;
       :hover {
-        background: rgb(239,96,61);
+        background: rgb(126,224,178);
       }
     `;
     const ReviewButton2 = styled.button`
@@ -247,6 +247,10 @@ class StopLossOrder extends React.Component {
       left: 22.5px;
       top: 10px;
       border-radius: 5px;
+      :hover {
+        color: rgb(126,224,178);
+        border-color: rgb(126,224,178);
+      }
     `;
     const WhiteTextMessage = styled.h5`
       font-size: 12px;
