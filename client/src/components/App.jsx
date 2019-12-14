@@ -31,9 +31,11 @@ class App extends React.Component {
 
   componentDidMount() {
     let path = location.pathname;
-    let stockSymbol = path.substring(8, path.length - 1)
+    let stockSymbol = path.substring(0, path.length - 1)
     if (stockSymbol === '' || stockSymbol === undefined) {
       stockSymbol = 'MMM'
+    } else {
+      stockSymbol = path.substring(8, path.length - 1)
     }
     this.getRandomStock(stockSymbol);
     this.getUserPower();
