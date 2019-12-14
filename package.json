@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "webpack:dev": "webpack -w -d --config webpack.config.js",
+    "webpack:dev": "webpack -w --mode=production --config webpack.config.js",
     "server:dev": "node server/server.js",
     "db:init": "node database/dbinit.js",
     "db:seed": "node database/seed.js",

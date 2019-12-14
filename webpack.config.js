@@ -10,8 +10,7 @@ module.exports = {
     rules: [
       {
         test: /\.jsx$/,
-        exclude: path.join(__dirname, './node_modules'),
-        include: path.join(__dirname, '/client/src'),
+        exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
           options: {
