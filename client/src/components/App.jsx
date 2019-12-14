@@ -32,6 +32,9 @@ class App extends React.Component {
   componentDidMount() {
     let path = location.pathname;
     let stockSymbol = path.substring(8, path.length - 1)
+    if (stockSymbol === '' || undefined) {
+      stockSymbol = 'MMM'
+    }
     console.log(stockSymbol)
     this.getRandomStock(stockSymbol);
     this.getUserPower();
@@ -53,7 +56,7 @@ class App extends React.Component {
 
   getUserPower() {
     ajax({
-      url: '/userpower',
+      url: 'http://13.52.212.165/userpower',
       method: 'GET',
       success: (data) => {
         this.setState({
@@ -147,7 +150,7 @@ class App extends React.Component {
 
   getRandomStock(stockSymbol) {
     ajax({
-      url: `/stocks/?stock_symbol=${stockSymbol}`,
+      url: `http://13.52.212.165/stocks/?stock_symbol=${stockSymbol}`,
       method: 'GET',
       success: (data) => {
         console.log('data :', data);
