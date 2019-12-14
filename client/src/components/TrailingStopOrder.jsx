@@ -280,14 +280,14 @@ class TrailingStopOrder extends React.Component {
       top: 10px;
       border-radius: 5px;
       :hover {
-        background: rgb(239,96,61);
+        background: rgb(126,224,178);
       }
     `;
     const ReviewButton2 = styled.button`
       color: rgb(93,207,154);
       width: 230px;
       text-align: center;
-      background: rgb(27,27,29);
+      background: rgb(255,255,255);
       font-family: 'DINPro-Medium', -apple-system, BlinkMacSystemFont, sans-serif;
       height: 50px;
       border-color: rgb(93,207,154);
@@ -296,6 +296,10 @@ class TrailingStopOrder extends React.Component {
       left: 22.5px;
       top: 10px;
       border-radius: 5px;
+      :hover {
+        color: rgb(126,224,178);
+        border-color: rgb(126,224,178);
+      }
     `;
     const WhiteTextMessage = styled.h5`
       font-size: 12px;
