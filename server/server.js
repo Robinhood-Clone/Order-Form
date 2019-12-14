@@ -15,7 +15,9 @@ app.listen(port, () => console.log(`Listening in on port ${port}!`));
 app.param('stock_symbol', function(req, res, next, stock_symbol) {
     next();
 })
-  
+
+app.use('/', express.static(path.join(path.join(__dirname, '../cliend/dist'))));
+
 app.use('/stocks/:stock_symbol', express.static(path.join(__dirname, '../client/dist')));
 
 app.get('/stocks', (req, res) => {
