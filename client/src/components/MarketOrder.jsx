@@ -202,7 +202,7 @@ class MarketOrder extends React.Component {
       font-family: 'DINPro-Medium', -apple-system, BlinkMacSystemFont, sans-serif;
       width: 230px;
       text-align: center;
-      background: rgb(27,27,29);
+      background: rgb(255,255,255);
       height: 50px;
       border-color: rgb(93,207,154);
       border-width: 1px;
