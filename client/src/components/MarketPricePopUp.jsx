@@ -18,7 +18,6 @@ class MarketPricePopUp extends React.Component {
     const PopUp = styled.div`
       position: absolute;
       left: 70px;
-      background: rgb(255,255,255);
       border-radius: 5px;
       width: 240px;
       z-index: 9;
@@ -26,14 +25,12 @@ class MarketPricePopUp extends React.Component {
     `;
     const WhiteText = styled.h5`
       font-size: 11px;
-      color: rgb(23,23,24);
       font-style: normal;
       position: relative;
       padding-left: 10px;
     `;
     const Price = styled.h5`
       font-size: 11px;
-      color: rgb(23,23,24);
       font-style: normal;
       font-family: 'DINPro-Medium', -apple-system, BlinkMacSystemFont, sans-serif;
       position: relative;
@@ -45,46 +42,42 @@ class MarketPricePopUp extends React.Component {
       justify-content: space-between;
     `;
     const PopUpTitle = styled.div`
-      color: rgb(23,23,24);
       font-size 13px;
       position: relative;
       padding: 15px;
-      border-bottom: 0.5px solid (244,244,245);
     `;
     const PopUpEnd = styled.div`
-      color: rgb(203,203,205);
       font-size 10px;
       position: relative;
       padding: 15px;
     `;
     const UnderLine = styled.div`
       width: 220px;
-      border-top: 1px solid rgb(244,244,245);
       align: center;
       position: relative;
       left: 10px;
     `;
     return (
-      <PopUp>
-        <PopUpTitle>
+      <PopUp className="backgroundStyling">
+        <PopUpTitle className="popUpTitleStyling">
           The consolidated real-time market data for {this.props.stock.stock_symbol} across all US stock exchanges is:
         </PopUpTitle>
         <Wrapper>
-          <WhiteText>Last Sale ({this.generateRandomStock()})</WhiteText>
-          <Price>{this.props.stock.price} x {this.generateRandomNumber()}</Price>
+          <WhiteText className="headerStyling">Last Sale ({this.generateRandomStock()})</WhiteText>
+          <Price className="headerStyling">{this.props.stock.price} x {this.generateRandomNumber()}</Price>
         </Wrapper>
-        <UnderLine></UnderLine>
+        <UnderLine className="underLineStyling"></UnderLine>
         <Wrapper>
-          <WhiteText>Bid ({this.generateRandomStock()})</WhiteText>
-          <Price>{this.props.stock.price} x {this.generateRandomNumber()}</Price>
+          <WhiteText className="headerStyling">Bid ({this.generateRandomStock()})</WhiteText>
+          <Price className="headerStyling">{this.props.stock.price} x {this.generateRandomNumber()}</Price>
         </Wrapper>
-        <UnderLine></UnderLine>
+        <UnderLine className="underLineStyling"></UnderLine>
         <Wrapper>
-          <WhiteText>Ask ({this.generateRandomStock()})</WhiteText>
-          <Price>{this.props.stock.price} x {this.generateRandomNumber()}</Price>
+          <WhiteText className="headerStyling">Ask ({this.generateRandomStock()})</WhiteText>
+          <Price className="headerStyling">{this.props.stock.price} x {this.generateRandomNumber()}</Price>
         </Wrapper>
-        <UnderLine></UnderLine>
-        <PopUpEnd>
+        <UnderLine className="underLineStyling"></UnderLine>
+        <PopUpEnd className="checkBoxTextStyling">
           The market price on the previous screen may be different because it represents the last trade reported on Nasdaq. Learn more about market data on our help center.
         </PopUpEnd>
       </PopUp>

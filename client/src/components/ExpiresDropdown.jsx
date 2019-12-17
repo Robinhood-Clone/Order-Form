@@ -40,9 +40,6 @@ class ExpiresDropdown extends React.Component{
       justify-content: space-between;
     `;
     const Option = styled.div`
-      background: rgb(255,255,255);
-      border: 0.5px solid rgb(250,250,250);
-      color: rgb(23,23,24);
       width: 141px;
       position: absolute;
       top: 70px;
@@ -51,14 +48,8 @@ class ExpiresDropdown extends React.Component{
       padding-top: 11px;
       padding-bottom: 11px;
       z-index: 8;
-      :hover {
-        background: rgb(250,250,250);
-      }
     `;
     const OptionSelect = styled.div`
-      background: rgb(93,207,154);
-      border: 0.5px solid rgb(250,250,250);
-      color: rgb(23,23,24);
       width: 141px;
       position: absolute;
       top: 35px;
@@ -72,15 +63,15 @@ class ExpiresDropdown extends React.Component{
       if (this.state.exp === 'gfd') {
         return(
           <Wrapper>
-            <OptionSelect onClick={this.handleGFDClick}>Good for Day</OptionSelect>
-            <Option onClick={this.handleGTCClick}>Good till Canceled</Option>
+            <OptionSelect className="optionSelectStyling" onClick={this.handleGFDClick}>Good for Day</OptionSelect>
+            <Option className="optionStyling" onClick={this.handleGTCClick}>Good till Canceled</Option>
           </Wrapper>
         );
       } else {
         return(
           <Wrapper>
-            <OptionSelect onClick={this.handleGTCClick}>Good till Canceled</OptionSelect>
-            <Option onClick={this.handleGFDClick}>Good for Day</Option>
+            <OptionSelect className="optionSelectStyling" onClick={this.handleGTCClick}>Good till Canceled</OptionSelect>
+            <Option className="optionStyling" onClick={this.handleGFDClick}>Good for Day</Option>
           </Wrapper>
         );
       }
@@ -107,14 +98,14 @@ class ExpiresDropdown extends React.Component{
     `;
     if (this.state.exp === 'gfd') {
       return (
-        <GoodForDay onClick={this.handleClick}>
+        <GoodForDay className="goodForDayStyling" onClick={this.handleClick}>
           Good for Day ▼
           {this.renderDropDown()}
         </GoodForDay>
       );
     } else {
       return (
-        <GoodForDay onClick={this.handleClick}>
+        <GoodForDay className="goodForDayStyling" onClick={this.handleClick}>
           Good till Canceled ▼
           {this.renderDropDown()}
         </GoodForDay>

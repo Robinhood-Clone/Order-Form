@@ -8,6 +8,7 @@ import TrailingStopOrder from './TrailingStopOrder.jsx';
 import Dropdown from './Dropdown.jsx';
 import styled from 'styled-components';
 
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -164,7 +165,6 @@ class App extends React.Component {
 
   render() {
     const BackGround = styled.div`
-      background: rgb(255,255,255);
       width: 275px;
       padding-top: 15px;
       padding-bottom: 2px;
@@ -177,19 +177,14 @@ class App extends React.Component {
       border: transparent;
       font-family: 'DINPro-Medium', -apple-system, BlinkMacSystemFont, sans-serif;
       font-size: 13px;
-      color: rgb(23,23,24);
       position: absolute;
       left: 92.5px;
-      :hover {
-        color: rgb(93,207,154);
-      }
     `;
     const SelectHeader2 = styled.button`
       background: transparent;
       border: transparent;
       font-family: 'DINPro-Medium', -apple-system, BlinkMacSystemFont, sans-serif;
       font-size: 13px;
-      color: rgb(93,207,154);
       position: absolute;
       left: 92.5px;
     `;
@@ -197,14 +192,10 @@ class App extends React.Component {
       background: transparent;
       border: transparent;
       font-size: 13px;
-      color: rgb(23,23,24);
       font-family: 'DINPro-Medium', -apple-system, BlinkMacSystemFont, sans-serif;
       position: relative;
       text-indent: 15px;
       top: -2px;
-      :hover {
-        color: rgb(93,207,154);
-      }
     `;
     const SelectHeader = styled.button`
       background: transparent;
@@ -212,18 +203,14 @@ class App extends React.Component {
       font-size: 13px;
       font-family: 'DINPro-Medium', -apple-system, BlinkMacSystemFont, sans-serif;
       font-style: bold;
-      color: rgb(93,207,154);
       position: relative;
       text-indent: 15px;
       top: -2px;
     `;
     const WatchButton = styled.button`
-      color: rgb(93,207,154);
       width: 230px;
       text-align: center;
-      background: rgb(255,255,255);
       height: 50px;
-      border-color: rgb(93,207,154);
       border-width: 1px;
       position: relative;
       left: 22.5px;
@@ -232,20 +219,17 @@ class App extends React.Component {
     `;
     const UnderLine = styled.div`
       width: 275px;
-      border-top: 0.5px solid rgb(244,244,245);
       position: relative;
       top: 15px;
     `;
     const UnderLineBuy = styled.div`
       width: 60px;
-      border-top: 2px solid rgb(93,207,154);
       position: relative;
       top: 13px;
       left: 22.5px;
     `;
     const UnderLineSell = styled.div`
       width: 60px;
-      border-top: 2px solid rgb(93,207,154);
       position: relative;
       top: 13px;
       left: 90px;
@@ -259,40 +243,40 @@ class App extends React.Component {
       return (
         <div>
           <Wrapper>
-            <BackGround>
+            <BackGround className="backgroundStyling">
               <div className="header">
-                <SelectHeader onClick={this.handleBuyClick} className="buyHeader">Buy {this.state.stock.stock_symbol}</SelectHeader>
-                <Header onClick={this.handleSellClick} className="sellHeader">Sell {this.state.stock.stock_symbol}</Header>
+                <SelectHeader onClick={this.handleBuyClick} className="justColorGreenRed">Buy {this.state.stock.stock_symbol}</SelectHeader>
+                <Header onClick={this.handleSellClick} className="realHeaderStyling">Sell {this.state.stock.stock_symbol}</Header>
                 <Dropdown orderType={this.state.orderType} handleDropDown={this.handleDropDown}/>
               </div>
-              <UnderLine></UnderLine>
-              <UnderLineBuy></UnderLineBuy>
+              <UnderLine class="underLineStyling"></UnderLine>
+              <UnderLineBuy class="underLineBuyStyling"></UnderLineBuy>
               <div className="main">
                 {this.renderView()}
               </div>
             </BackGround>
           </Wrapper>
-          <WatchButton className="watchButton" onClick={this.toggleWatch}> {this.state.watch === false ? 'Add to Watchlist' : 'Remove from WatchList'} </WatchButton>
+          <WatchButton className="watchButtonStyling" onClick={this.toggleWatch}> {this.state.watch === false ? 'Add to Watchlist' : 'Remove from WatchList'} </WatchButton>
         </div>
       );
     } else {
       return (
         <div>
           <Wrapper>
-          <BackGround>
+          <BackGround className="backgroundStyling">
             <div className="header">
-              <Header2 onClick={this.handleBuyClick} className="buyHeader">Buy {this.state.stock.stock_symbol}</Header2>
-              <SelectHeader2 onClick={this.handleSellClick} className="sellHeader">Sell {this.state.stock.stock_symbol}</SelectHeader2>
+              <Header2 onClick={this.handleBuyClick} className="realHeaderStyling">Buy {this.state.stock.stock_symbol}</Header2>
+              <SelectHeader2 onClick={this.handleSellClick} className="justColorGreenRed">Sell {this.state.stock.stock_symbol}</SelectHeader2>
               <Dropdown orderType={this.state.orderType} handleDropDown={this.handleDropDown}/>
             </div>
-            <UnderLine></UnderLine>
-            <UnderLineSell></UnderLineSell>
+            <UnderLine class="underLineStyling"></UnderLine>
+            <UnderLineSell class="underLineBuyStyling"></UnderLineSell>
             <div className="main">
               {this.renderView()}
             </div>
           </BackGround>
           </Wrapper>
-          <WatchButton className="watchButton" onClick={this.toggleWatch}> {this.state.watch === false ? 'Add to Watchlist' : 'Remove from WatchList'} </WatchButton>
+          <WatchButton className="watchButtonStyling" onClick={this.toggleWatch}> {this.state.watch === false ? 'Add to Watchlist' : 'Remove from WatchList'} </WatchButton>
         </div>
       );
     }

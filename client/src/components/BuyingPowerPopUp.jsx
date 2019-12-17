@@ -12,7 +12,6 @@ class BuyingPowerPopUp extends React.Component {
     const PopUp = styled.div`
       position: absolute;
       left: 70px;
-      background: rgb(255,255,255);
       border-radius: 5px;
       width: 240px;
       z-index: 9;
@@ -20,7 +19,6 @@ class BuyingPowerPopUp extends React.Component {
     `;
     const WhiteText = styled.h5`
       font-size: 11px;
-      color: rgb(23,23,24);
       font-style: normal;
       position: relative;
       padding-left: 10px;
@@ -28,21 +26,18 @@ class BuyingPowerPopUp extends React.Component {
     const WhiteTextBold = styled.h5`
       font-size: 11px;
       font-family: 'DINPro-Medium', -apple-system, BlinkMacSystemFont, sans-serif;
-      color: rgb(23,23,24);
       font-style: normal;
       position: relative;
       padding-left: 10px;
     `;
     const Price = styled.h5`
       font-size: 11px;
-      color: rgb(23,23,24);
       font-style: normal;
       position: relative;
       padding-right: 10px;
     `;
     const PriceBold = styled.h5`
       font-size: 11px;
-      color: rgb(23,23,24);
       font-style: normal;
       position: relative;
       padding-right: 10px;
@@ -54,35 +49,34 @@ class BuyingPowerPopUp extends React.Component {
       justify-content: space-between;
     `;
     const PopUpTitle = styled.div`
-      color: rgb(23,23,24);
       font-size 11px;
       position: relative;
       padding: 15px;
     `;
     return (
-      <PopUp>
-        <PopUpTitle>
+      <PopUp className="backgroundStyling">
+        <PopUpTitle className="headerStyling">
           {this.props.stock.stock_symbol} has standard margin requirements, so you can invest with all your available margin.
         </PopUpTitle>
         <Wrapper>
-          <WhiteText>Cash</WhiteText>
-          <Price>{this.props.power}</Price>
+          <WhiteText className="headerStyling">Cash</WhiteText>
+          <Price className="headerStyling">{this.props.power}</Price>
         </Wrapper>
         <Wrapper>
-          <WhiteText>Margin</WhiteText>
-          <Price>$0.00</Price>
+          <WhiteText className="headerStyling">Margin</WhiteText>
+          <Price className="headerStyling">$0.00</Price>
         </Wrapper>
         <Wrapper>
-          <WhiteTextBold>Buying Power For {this.props.stock.stock_symbol}</WhiteTextBold>
-          <PriceBold>{this.props.power}</PriceBold>
+          <WhiteTextBold className="headerStyling">Buying Power For {this.props.stock.stock_symbol}</WhiteTextBold>
+          <PriceBold className="headerStyling">{this.props.power}</PriceBold>
         </Wrapper>
         <Wrapper>
-          <WhiteText>Initial Margin</WhiteText>
-          <Price>50%</Price>
+          <WhiteText className="headerStyling">Initial Margin</WhiteText>
+          <Price className="headerStyling">50%</Price>
         </Wrapper>
         <Wrapper>
-          <WhiteText>Maintenance Margin</WhiteText>
-          <Price>25%</Price>
+          <WhiteText className="headerStyling">Maintenance Margin</WhiteText>
+          <Price className="headerStyling">25%</Price>
         </Wrapper>
       </PopUp>
     );
