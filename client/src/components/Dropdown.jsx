@@ -147,14 +147,10 @@ class Dropdown extends React.Component {
   }
   render() {
     const Dots = styled.div`
-      color: rgb(23,23,24);
       position: absolute;
       left: 235px;
       top: -33px;
       font-size: 30px;
-      :hover {
-        color: rgb(93,207,154);
-      }
     `;
     const Wrapper = styled.div`
       display: flex;
@@ -162,7 +158,7 @@ class Dropdown extends React.Component {
     `;
     return (
       <Wrapper>
-        <Dots onClick={this.toggleList}>···</Dots>
+        <Dots className="dotsStyling" onClick={this.toggleList}>···</Dots>
         <div>{this.renderDropDown()}</div>
       </Wrapper>
     );

@@ -277,7 +277,7 @@ class LimitOrder extends React.Component {
     if (reviewOrder === 'trueSell') {
       return (
         <div className="trueReviewOrder">
-          <WhiteTextMessage className="dropDownButtonStyling">You are placing a good for day market order to sell {this.state.shares} shares of {this.props.stock.stock_symbol}. Your order will be placed after the market opens and executed at the best available price.</WhiteTextMessage>
+          <WhiteTextMessage className="headerStyling">You are placing a good for day market order to sell {this.state.shares} shares of {this.props.stock.stock_symbol}. Your order will be placed after the market opens and executed at the best available price.</WhiteTextMessage>
           <ReviewButton className="reviewButtonStyling" onClick={this.handleBuy}><h4>Sell</h4></ReviewButton>
           <Spacing></Spacing>
           <ReviewButton2 className="reviewButton2Styling" onClick={this.backPress}><h4>Edit</h4></ReviewButton2>
@@ -287,7 +287,7 @@ class LimitOrder extends React.Component {
     if (reviewOrder === 'true') {
       return (
         <div className="trueReviewOrder">
-          <WhiteTextMessage className="dropDownButtonStyling">You are placing a good for day market order to buy {this.state.shares} shares of {this.props.stock.stock_symbol}. Your order will be placed after the market opens and executed at the best available price.</WhiteTextMessage>
+          <WhiteTextMessage className="headerStyling">You are placing a good for day market order to buy {this.state.shares} shares of {this.props.stock.stock_symbol}. Your order will be placed after the market opens and executed at the best available price.</WhiteTextMessage>
           <ReviewButton className="reviewButtonStyling" onClick={this.handleBuy}><h4>Buy</h4></ReviewButton>
           <Spacing></Spacing>
           <ReviewButton2 className="reviewButton2Styling" onClick={this.backPress}><h4>Edit</h4></ReviewButton2>
@@ -300,10 +300,10 @@ class LimitOrder extends React.Component {
       let deposit= ((this.state.estim * 1.05) - buyingPower).toFixed(2);
       return (
         <div className="falseReviewOrder">
-          <WhiteTextMessage2 className="dropDownButtonStyling"> <Exclamation className="exclamation" href="#"></Exclamation>Not Enough Buying Power</WhiteTextMessage2>
-          <WhiteTextMessage className="dropDownButtonStyling">You don't have enough buying power to buy {this.state.shares} share of {this.props.stock.stock_symbol}.</WhiteTextMessage>
-          <WhiteTextMessage className="dropDownButtonStyling">Please Deposit ${deposit} to purchase {this.state.shares} share at market price (5% collar included).</WhiteTextMessage>
-          <WhiteTextMessage className="dropDownButtonStyling">Market orders on Robinhood are placed as limit orders up to 5% above the market price in order to protect customers from spending more than they have in their Robinhood account. If you want to use your full buying power of {this.props.power} you can place a limit order instead.</WhiteTextMessage>
+          <WhiteTextMessage2 className="headerStyling"> <Exclamation className="exclamation" href="#"></Exclamation>Not Enough Buying Power</WhiteTextMessage2>
+          <WhiteTextMessage className="headerStyling">You don't have enough buying power to buy {this.state.shares} share of {this.props.stock.stock_symbol}.</WhiteTextMessage>
+          <WhiteTextMessage className="headerStyling">Please Deposit ${deposit} to purchase {this.state.shares} share at market price (5% collar included).</WhiteTextMessage>
+          <WhiteTextMessage className="headerStyling">Market orders on Robinhood are placed as limit orders up to 5% above the market price in order to protect customers from spending more than they have in their Robinhood account. If you want to use your full buying power of {this.props.power} you can place a limit order instead.</WhiteTextMessage>
           <ReviewButton className="reviewButtonStyling">Deposit ${deposit}</ReviewButton>
           <Spacing></Spacing>
           <ReviewButton2 className="reviewButton2Styling" onClick={this.backPress}>Back</ReviewButton2>
@@ -314,8 +314,8 @@ class LimitOrder extends React.Component {
       let buyingPower = Number(this.props.power.slice(1, this.props.power.length))
       return (
         <div className="falseReviewOrder">
-          <WhiteTextMessage2 className="dropDownButtonStyling">Not Enough Shares</WhiteTextMessage2>
-          <WhiteTextMessage className="dropDownButtonStyling">You can only sell up to {this.props.owns} share(s) of {this.props.stock.stock_symbol}.</WhiteTextMessage>
+          <WhiteTextMessage2 className="headerStyling">Not Enough Shares</WhiteTextMessage2>
+          <WhiteTextMessage className="headerStyling">You can only sell up to {this.props.owns} share(s) of {this.props.stock.stock_symbol}.</WhiteTextMessage>
           <ReviewButton2 className="reviewButton2Styling" onClick={this.backPress}>Back</ReviewButton2>
         </div>
       );
@@ -405,7 +405,7 @@ class LimitOrder extends React.Component {
         <form className="limitOrderForm">
           <Spacing></Spacing>
           <Wrapper>
-            <WhiteText className="dropDownButtonStyling">Limit Price</WhiteText>
+            <WhiteText className="headerStyling">Limit Price</WhiteText>
             <ShareSearch 
               className="shareSearchStyling" 
               placeholder={this.state.limit} 
@@ -417,7 +417,7 @@ class LimitOrder extends React.Component {
             />
           </Wrapper>
           <Wrapper>
-            <WhiteText className="dropDownButtonStyling">Shares</WhiteText>
+            <WhiteText className="headerStyling">Shares</WhiteText>
             <ShareSearch
               className="shareSearchStyling"
               type="number" 
@@ -429,12 +429,12 @@ class LimitOrder extends React.Component {
             />
           </Wrapper>
           <Wrapper className="custom-select">
-            <WhiteText className="dropDownButtonStyling">Expires</WhiteText>
+            <WhiteText className="headerStyling">Expires</WhiteText>
             <ExpiresDropdown handleEXPChange={this.handleEXPChange} exp={this.state.exp} />
           </Wrapper>
           <UnderLineMini className="UnderLineMiniStyling"></UnderLineMini>
           <Wrapper>
-            <WhiteTextBold className="dropDownButtonStyling">{this.props.buy === true ? 'Estimated Cost ' : 'Estimated Credit ' }</WhiteTextBold>
+            <WhiteTextBold className="headerStyling">{this.props.buy === true ? 'Estimated Cost ' : 'Estimated Credit ' }</WhiteTextBold>
             <EstimatedCostWhite className="headerStyling">${this.state.estim}</EstimatedCostWhite>
           </Wrapper>
           <Wrapper>

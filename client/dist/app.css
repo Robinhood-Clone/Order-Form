@@ -6,6 +6,7 @@ input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0; 
 }
+
 @font-face
 {
     font-family: 'DINPro-Light';
@@ -24,8 +25,17 @@ input::-webkit-inner-spin-button {
     font-family: 'DINPro';
     src: url('./DINPro.ttf')
 }
-
+/* 
 // OPEN -GREEN
+
+.dotsStyling {
+    color: rgb(23,23,24);
+}
+
+.dotsStyling:hover {
+    color: rgb(94,207,156);
+}
+
 .infolink:before
 {
     content: '?';
@@ -85,7 +95,7 @@ input::-webkit-inner-spin-button {
 }
 
 .underLineStyling {
-    border-top: 1px solid rgb(244,244,245);
+    border-top: 0.5px solid rgb(244,244,245);
 }
 
 .underLineBuyStyling {
@@ -184,10 +194,19 @@ input::-webkit-inner-spin-button {
 
 .realHeaderStyling:hover {
     color: rgb(94,207,156);
+} */
+
+
+// OPEN -RED
+
+.dotsStyling {
+    color: rgb(23,23,24);
 }
 
-/* 
-// OPEN -RED
+.dotsStyling:hover {
+    color: rgb(227,96,63);
+}
+
 .infolink:before
 {
     content: '?';
@@ -247,7 +266,7 @@ input::-webkit-inner-spin-button {
 }
 
 .underLineStyling {
-    border-top: 1px solid rgb(244,244,245);
+    border-top: 0.5px solid rgb(244,244,245);
 }
 
 .underLineBuyStyling {
@@ -349,8 +368,19 @@ input::-webkit-inner-spin-button {
 }
 
 
-
+/* 
 // CLOSED -GREEN
+
+
+.dotsStyling {
+    color: rgb(255,255,255);
+}
+
+.dotsStyling:hover {
+    color: rgb(94,207,156);
+}
+
+
 .infolink:before
 {
     content: '?';
@@ -410,7 +440,7 @@ input::-webkit-inner-spin-button {
 }
 
 .underLineStyling {
-    border-top: 1px solid rgb(14,13,13);
+    border-top: 0.5px solid rgb(14,13,13);
 }
 
 .underLineBuyStyling {
@@ -513,6 +543,17 @@ input::-webkit-inner-spin-button {
 
 
 // CLOSED -RED
+
+
+.dotsStyling {
+    color: rgb(255,255,255);
+}
+
+.dotsStyling:hover {
+    color: rgb(238,84,53);
+}
+
+
 .infolink:before
 {
     content: '?';
@@ -529,7 +570,7 @@ input::-webkit-inner-spin-button {
     padding: 1px;
     color: rgb(238,84,53);
     background: rgb(23,23,24);
-    border: 1px solid rgb(238,84,53)
+    border: 1px solid rgb(238,84,53);
     text-decoration: none;
 }
 
@@ -572,7 +613,7 @@ input::-webkit-inner-spin-button {
 }
 
 .underLineStyling {
-    border-top: 1px solid rgb(14,13,13);
+    border-top: 0.5px solid rgb(14,13,13);
 }
 
 .underLineBuyStyling {
