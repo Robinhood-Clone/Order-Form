@@ -51,6 +51,6 @@
     "jest": "^24.9.0",
     "sinon": "^7.5.0",
     "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.10"
+    "webpack-cli": "^3.3.12"
   }
 }
